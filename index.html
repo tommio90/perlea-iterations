@@ -173,7 +173,7 @@
 
     <div class="hidden md:flex items-center gap-10">
       <a href="#who"          class="text-sm text-white/40 hover:text-white/80 transition-colors">Who It's For</a>
-      <a href="#capabilities" class="text-sm text-white/40 hover:text-white/80 transition-colors">How it Works</a>
+      <a href="#capabilities" class="text-sm text-white/40 hover:text-white/80 transition-colors">Capabilities</a>
       <a href="#waitlist"     class="text-sm text-white/40 hover:text-white/80 transition-colors">Waitlist</a>
     </div>
 
@@ -191,7 +191,7 @@
 
   <!-- Logistics visual layer -->
   <div class="absolute inset-0"
-       style="background-image:url('https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=2400&auto=format&fit=crop'); background-size:cover; background-position:center; filter:grayscale(1) contrast(1) saturate(0.6) blur(1px); opacity:0.18;"></div>
+       style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2400&auto=format&fit=crop'); background-size:cover; background-position:center; filter:grayscale(1) contrast(1) saturate(0.8) blur(1px); opacity:0.18;"></div>
 
   <!-- WebGL canvas: mix-blend-mode lighten over the dark base (matches App.tsx) -->
   <canvas id="gradient-blinds" class="absolute inset-0 w-full h-full"
@@ -209,7 +209,7 @@
   <div class="relative z-10 min-h-screen flex flex-col justify-center px-8 pt-28 pb-24 max-w-5xl mx-auto">
 
     <div class="reveal mb-6">
-      <span class="text-[11px] tracking-[0.25em] uppercase" style="color:rgba(255,255,255,0.65);">Perlea Logistics AI Studio</span>
+      <span class="text-[11px] tracking-[0.25em] uppercase" style="color:rgba(255,255,255,0.65);">Perlea AI for Logistics</span>
     </div>
 
     <h1 class="reveal d1 serif font-bold leading-[1.05] text-white mb-10"
@@ -220,14 +220,10 @@
 
     <p class="reveal d2 text-base font-light leading-relaxed max-w-sm mb-12"
        style="color:rgba(255,255,255,0.72); text-shadow: 0 1px 12px rgba(0,0,0,0.95);">
-      Build a demo-ready AI app like predictive freight pricing, route optimization, or warehouse automation in just 8 weeks. Use our pre-built components and expert-led tutorials.
+      Build AI-powered logistics apps with our pre-built React components and expert-led tutorials. Create demo-ready applications for use cases like predictive freight pricing, route optimization, and warehouse automation in as little as 8 weeks.
     </p>
 
-    <p class="reveal d3 text-xs tracking-[0.18em] uppercase mb-10" style="color:rgba(255,255,255,0.55);">
-      Typical pricing: $3k–$8k per month for a 6–8 week demo track, including access to our platform, pre-built components, and expert support.
-    </p>
-
-    <div class="reveal d4 flex items-center gap-8 mb-16">
+    <div class="reveal d3 flex items-center gap-8 mb-16">
       <a href="#waitlist"
          class="text-sm font-medium text-black bg-white px-7 py-3.5 rounded-full hover:bg-white/90 transition-colors">
         Get Early Access
@@ -462,6 +458,92 @@
       </div>
     </div>
 
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     EXAMPLE PROJECTS — code + repos
+──────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
+
+<section class="max-w-6xl mx-auto px-8 py-28">
+  <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
+    <div>
+      <p class="reveal text-[11px] tracking-[0.25em] uppercase mb-5" style="color:rgba(255,255,255,0.25);">Example projects</p>
+      <h2 class="reveal d1 serif font-bold text-white mb-4 leading-[1.1]" style="font-size: clamp(32px, 4vw, 52px);">
+        See the code.<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">Build on real repos.</em>
+      </h2>
+      <p class="reveal d2 text-sm max-w-md leading-relaxed" style="color:rgba(255,255,255,0.38);">
+        Every demo track includes a production-grade starter with React UI, API services, and deployment scripts. Browse full projects to assess quality before you join.
+      </p>
+      <div class="reveal d3 mt-6 flex flex-wrap gap-4 text-sm">
+        <a href="https://github.com/perlea-ai/logistics-starter" class="text-white/70 hover:text-white transition-colors" target="_blank" rel="noopener">Logistics Starter →</a>
+        <a href="https://github.com/perlea-ai/freight-pricing-demo" class="text-white/70 hover:text-white transition-colors" target="_blank" rel="noopener">Freight Pricing Demo →</a>
+        <a href="https://github.com/perlea-ai/route-optimizer" class="text-white/70 hover:text-white transition-colors" target="_blank" rel="noopener">Route Optimizer →</a>
+      </div>
+    </div>
+
+    <div class="grid gap-4">
+      <div class="reveal d1 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">React component</p>
+        <pre class="text-xs leading-relaxed overflow-x-auto" style="color:rgba(255,255,255,0.55);"><code>export function RateBand({ lane, median, p10, p90 }) {
+  return (
+    &lt;Card&gt;
+      &lt;h3&gt;{lane}&lt;/h3&gt;
+      &lt;Band median={median} min={p10} max={p90} /&gt;
+    &lt;/Card&gt;
+  );
+}</code></pre>
+      </div>
+      <div class="reveal d2 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">API service</p>
+        <pre class="text-xs leading-relaxed overflow-x-auto" style="color:rgba(255,255,255,0.55);"><code>@router.post("/price/forecast")
+def forecast_price(payload: ForecastRequest):
+    features = featurize(payload)
+    bands = model.predict_bands(features)
+    return {"lane": payload.lane_id, "bands": bands}</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     TECHNICAL DETAILS — FAQ style
+──────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
+
+<section class="max-w-6xl mx-auto px-8 py-28">
+  <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
+    <div>
+      <p class="reveal text-[11px] tracking-[0.25em] uppercase mb-5" style="color:rgba(255,255,255,0.25);">Technical details</p>
+      <h2 class="reveal d1 serif font-bold text-white mb-4 leading-[1.1]" style="font-size: clamp(32px, 4vw, 52px);">
+        Concrete stack,<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">no black boxes.</em>
+      </h2>
+      <p class="reveal d2 text-sm max-w-md leading-relaxed" style="color:rgba(255,255,255,0.38);">
+        We ship code you can read, extend, and deploy. Here’s what’s inside the default builds.
+      </p>
+    </div>
+
+    <div class="grid gap-4">
+      <div class="reveal d1 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Stack</p>
+        <ul class="text-sm leading-relaxed space-y-3" style="color:rgba(255,255,255,0.55);">
+          <li>Frontend: React + TypeScript component library with Tailwind utilities.</li>
+          <li>Backend: Python (FastAPI) services with optional Node/TypeScript workers.</li>
+          <li>Data: Postgres + Redis, with optional pgvector or Pinecone.</li>
+        </ul>
+      </div>
+      <div class="reveal d2 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Deployment</p>
+        <ul class="text-sm leading-relaxed space-y-3" style="color:rgba(255,255,255,0.55);">
+          <li>Docker-first builds with local dev scripts and CI templates.</li>
+          <li>Deploy to AWS, GCP, or Vercel with reference IaC.</li>
+          <li>Bring your own models or use hosted APIs with auditing hooks.</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
