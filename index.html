@@ -214,13 +214,18 @@
 
     <h1 class="reveal d1 serif font-bold leading-[1.05] text-white mb-10"
         style="font-size: clamp(52px, 6.5vw, 96px); text-shadow: 0 2px 32px rgba(0,0,0,0.9), 0 1px 8px rgba(0,0,0,0.8);">
-      Demo AI-Powered Logistics in Weeks.<br>
-      <em class="font-normal" style="color:rgba(255,255,255,0.75);">No Code Required.</em>
+      Ship AI-Powered Logistics Features in Weeks.<br>
+      <em class="font-normal" style="color:rgba(255,255,255,0.75);">(Yes, Really.)</em>
     </h1>
 
     <p class="reveal d2 text-base font-light leading-relaxed max-w-sm mb-12"
        style="color:rgba(255,255,255,0.72); text-shadow: 0 1px 12px rgba(0,0,0,0.95);">
-      Skip the months of coding. Build a demo of predictive freight pricing, route optimization, or warehouse automation in weeks. Show investors a CTO-ready prototype, using our pre-built AI models and logistics data.
+      Tired of AI features stuck in the backlog? Build a working demo of predictive freight pricing, route optimization, or warehouse automation in weeks – even without a dedicated AI team. Use our pre-built AI models and logistics data to show stakeholders a tangible solution, not just a PowerPoint.
+    </p>
+
+    <p class="reveal d2 text-sm font-light leading-relaxed max-w-md mb-10"
+       style="color:rgba(255,255,255,0.5); text-shadow: 0 1px 10px rgba(0,0,0,0.9);">
+      Purpose-built for logistics teams shipping pricing, routing, ETA risk, and warehouse ops features — not generic AI demos.
     </p>
 
     <div class="reveal d3 flex items-center gap-8 mb-8">
@@ -235,8 +240,8 @@
     </div>
 
     <div class="reveal d4 flex items-center gap-3 text-xs tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.35);">
-      <span style="color:rgba(255,69,0,0.65);">Ambient signal layer</span>
-      <span style="color:rgba(255,255,255,0.35);">Move your cursor to reveal demand hotspots</span>
+      <span style="color:rgba(255,69,0,0.65);">Live logistics heatmap</span>
+      <span style="color:rgba(255,255,255,0.35);">Move your cursor to reveal AI-simulated lane pressure</span>
     </div>
 
   </div>
@@ -374,6 +379,47 @@
           Gradient-boosted ETA risk model using lane history, weather, and dwell-time signals.
         </p>
         <div class="mt-4 h-[2px] w-full" style="background:linear-gradient(90deg, rgba(255,69,0,0.7), rgba(255,255,255,0.05));"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     MODELS + DATA — credibility layer
+──────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
+
+<section class="max-w-6xl mx-auto px-8 py-28">
+  <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
+    <div>
+      <p class="reveal text-[11px] tracking-[0.25em] uppercase mb-5" style="color:rgba(255,255,255,0.25);">Models + data library</p>
+      <h2 class="reveal d1 serif font-bold text-white mb-4 leading-[1.1]" style="font-size: clamp(32px, 4vw, 52px);">
+        Pre-built models<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">with real logistics data.</em>
+      </h2>
+      <p class="reveal d2 text-sm max-w-md leading-relaxed" style="color:rgba(255,255,255,0.38);">
+        Each model ships with performance reports, backtests on held-out lanes, and explainability tooling so you can defend results in reviews — not just demo a UI.
+      </p>
+    </div>
+
+    <div class="grid gap-4">
+      <div class="reveal d1 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-xs tracking-[0.2em] uppercase mb-3" style="color:rgba(255,255,255,0.35);">Model catalog</p>
+        <ul class="text-sm leading-relaxed space-y-3" style="color:rgba(255,255,255,0.6);">
+          <li>Prophet + XGBoost pricing bands with weekly retraining and error bands.</li>
+          <li>Graph routing + OR-Tools constraints for multi-stop optimization.</li>
+          <li>ETA risk GBM with weather, dwell-time, and lane history features.</li>
+          <li>OCR + LLM doc extraction with confidence scoring and audits.</li>
+        </ul>
+      </div>
+      <div class="reveal d2 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-xs tracking-[0.2em] uppercase mb-3" style="color:rgba(255,255,255,0.35);">Data sources</p>
+        <ul class="text-sm leading-relaxed space-y-3" style="color:rgba(255,255,255,0.6);">
+          <li>Anonymized lane history, tender volumes, and spot rate curves.</li>
+          <li>ELD/telematics-like pings, traffic, and weather signals.</li>
+          <li>WMS scan events, dock appointment logs, and labor schedules.</li>
+          <li>Carrier performance, SLA history, and exception tags.</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -786,6 +832,13 @@ def forecast_price(payload: ForecastRequest):
       </p>
     </div>
     <div class="grid gap-4">
+      <div class="reveal d1 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Case study spotlight</p>
+        <p class="text-sm text-white/80 mb-2">Midwest 3PL — ETA Risk Reduction</p>
+        <p class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.55);">
+          Problem: unpredictable dwell times were driving missed SLAs. Perlea demo used lane history + weather + dock logs to flag high-risk loads and recommend alternate routing. Outcome: ops leadership approved a pilot after a single review and scoped a 12-week build.
+        </p>
+      </div>
       <div class="reveal d1 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
         <p class="text-sm text-white/80 mb-1">Global 3PL — Pricing Strategy</p>
         <p class="text-xs uppercase tracking-[0.2em]" style="color:rgba(255,255,255,0.35);">6-week demo</p>
