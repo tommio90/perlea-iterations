@@ -9,7 +9,7 @@ import os, sys, json, re, time, subprocess, pty, datetime, select
 from pathlib import Path
 
 # ── Paths ──────────────────────────────────────────────────────────────────
-WORKSPACE   = Path('/Users/giuseppetomasello/perlea-website')
+WORKSPACE   = Path('/Users/giuseppetomasello/perlea-iterations')
 ITER_DIR    = WORKSPACE / '.iterations'
 STATE_FILE  = ITER_DIR / 'state.json'
 LOG_FILE    = ITER_DIR / 'run.log'
@@ -177,7 +177,7 @@ def generate_task(feedback, persona, iteration):
     confused = feedback.get('what_confused_you', [])[:2]
     missing = feedback.get('missing_info', [])[:2]
 
-    task = f"""Improve /Users/giuseppetomasello/perlea-website/index.html for iteration {iteration}/20.
+    task = f"""Improve /Users/giuseppetomasello/perlea-iterations/index.html for iteration {iteration}/20.
 
 PERSONA FEEDBACK ({persona['name']} — {persona['role']}):
 Rating: {feedback.get('overall_rating','?')}/10
@@ -203,7 +203,7 @@ CONSTRAINTS (non-negotiable):
 - Keep: all section IDs (capabilities, who, waitlist, etc.)
 - Make surgical changes only — don't rewrite sections entirely
 - Commit message must start with 'iterate-{iteration:02d}:'
-- After editing, run: git -C /Users/giuseppetomasello/perlea-website add -A && git -C /Users/giuseppetomasello/perlea-website commit -m "iterate-{iteration:02d}: {persona['name'].lower()} feedback (rating {feedback.get('overall_rating','?')}/10)" && git -C /Users/giuseppetomasello/perlea-website push origin main
+- After editing, run: git -C /Users/giuseppetomasello/perlea-iterations add -A && git -C /Users/giuseppetomasello/perlea-iterations commit -m "iterate-{iteration:02d}: {persona['name'].lower()} feedback (rating {feedback.get('overall_rating','?')}/10)" && git -C /Users/giuseppetomasello/perlea-iterations push origin main
 """
     return task
 
@@ -382,7 +382,7 @@ def run_iteration(iteration, state, gemini_key):
             f"🦞 Perlea iteration {iteration}/{MAX_ITERS} complete\n"
             f"Avg rating (last 5): {avg_rating:.1f}/10\n"
             f"Latest ({persona['name']}): {rating}/10 — {verdict[:60]}\n"
-            f"Live: https://perlea-website.vercel.app"
+            f"Live: https://perlea-iterations.vercel.app"
         )
         notify_telegram(msg)
         log(f"  📲 Telegram notification sent")
@@ -438,7 +438,7 @@ def main():
     for i, h in enumerate(history):
         summary += f"  {i+1:02d}. {h.get('persona','?'):8s} → {h.get('rating','?')}/10 — {h.get('verdict','')[:50]}\n"
     summary += f"\nFinal average: {avg:.1f}/10\n"
-    summary += f"Live: https://perlea-website.vercel.app\n"
+    summary += f"Live: https://perlea-iterations.vercel.app\n"
     summary += f"{'='*60}\n"
 
     log(summary)
@@ -447,7 +447,7 @@ def main():
     notify_telegram(
         f"🦞 Perlea BML complete! {MAX_ITERS} iterations done.\n"
         f"Average rating: {avg:.1f}/10\n"
-        f"https://perlea-website.vercel.app"
+        f"https://perlea-iterations.vercel.app"
     )
 
 if __name__ == '__main__':
