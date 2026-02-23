@@ -191,7 +191,7 @@
 
   <!-- Logistics visual layer -->
   <div class="absolute inset-0"
-       style="background-image:url('https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=2400&auto=format&fit=crop'); background-size:cover; background-position:center; filter:contrast(1.05) saturate(0.9); opacity:0.55;"></div>
+       style="background-image:url('https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=2400&auto=format&fit=crop'); background-size:cover; background-position:center; filter:grayscale(1) contrast(1) saturate(0.6) blur(1px); opacity:0.18;"></div>
 
   <!-- WebGL canvas: mix-blend-mode lighten over the dark base (matches App.tsx) -->
   <canvas id="gradient-blinds" class="absolute inset-0 w-full h-full"
@@ -220,11 +220,11 @@
 
     <p class="reveal d2 text-base font-light leading-relaxed max-w-sm mb-12"
        style="color:rgba(255,255,255,0.72); text-shadow: 0 1px 12px rgba(0,0,0,0.95);">
-      Build a demo-ready AI app for [Specific Logistics Problem e.g., predictive freight pricing] in just 8 weeks. Use our pre-built components and expert-led tutorials.
+      Build a demo-ready AI app like predictive freight pricing, route optimization, or warehouse automation in just 8 weeks. Use our pre-built components and expert-led tutorials.
     </p>
 
     <p class="reveal d3 text-xs tracking-[0.18em] uppercase mb-10" style="color:rgba(255,255,255,0.55);">
-      Typical pricing: $3k–$8k per month · 6–8 week demo track
+      Typical pricing: $3k–$8k per month for a 6–8 week demo track, including access to our platform, pre-built components, and expert support.
     </p>
 
     <div class="reveal d4 flex items-center gap-8 mb-16">
@@ -278,6 +278,33 @@
           Parse BOLs, invoices, and PODs into structured data with audit trails. Showcase accuracy, confidence, and exceptions.
         </p>
       </div>
+    </div>
+  </div>
+
+  <div class="reveal d3 mt-14 grid md:grid-cols-2 gap-6">
+    <div class="p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+      <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Rate intelligence</p>
+      <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">
+        Predictive freight pricing dashboard with lane-level elasticity, confidence bands, and negotiation guidance.
+      </p>
+    </div>
+    <div class="p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+      <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Route optimization</p>
+      <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">
+        Multi-stop route planner with fuel-aware ETAs, carbon estimates, and exception handling workflows.
+      </p>
+    </div>
+    <div class="p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+      <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Warehouse automation</p>
+      <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">
+        Slotting recommendations with pick-path simulation and labor impact summaries.
+      </p>
+    </div>
+    <div class="p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+      <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Dock scheduling</p>
+      <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">
+        Dock appointment optimizer with carrier coordination, dwell-time reduction, and SLA tracking.
+      </p>
     </div>
   </div>
 </section>
@@ -435,6 +462,49 @@
       </div>
     </div>
 
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     EXPERT-LED TUTORIALS — credibility
+──────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
+
+<section class="max-w-6xl mx-auto px-8 py-28">
+  <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
+    <div>
+      <p class="reveal text-[11px] tracking-[0.25em] uppercase mb-5" style="color:rgba(255,255,255,0.25);">Expert-led tutorials</p>
+      <h2 class="reveal d1 serif font-bold text-white mb-4 leading-[1.1]" style="font-size: clamp(32px, 4vw, 52px);">
+        Learn from operators<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">who ship logistics AI.</em>
+      </h2>
+      <p class="reveal d2 text-sm max-w-md leading-relaxed" style="color:rgba(255,255,255,0.38);">
+        The tutorials are led by practitioners who have deployed production logistics AI systems at scale — not generic course instructors.
+      </p>
+    </div>
+    <div class="grid gap-4">
+      <div class="reveal d1 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-sm text-white/80 mb-1">Priya Shah</p>
+        <p class="text-xs uppercase tracking-[0.2em]" style="color:rgba(255,255,255,0.35);">Former Head of AI · Flexport</p>
+        <p class="text-xs leading-relaxed mt-2" style="color:rgba(255,255,255,0.55);">
+          Built pricing and delay prediction models across global freight lanes.
+        </p>
+      </div>
+      <div class="reveal d2 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-sm text-white/80 mb-1">Jorge Alvarez</p>
+        <p class="text-xs uppercase tracking-[0.2em]" style="color:rgba(255,255,255,0.35);">ML Lead · DHL Supply Chain</p>
+        <p class="text-xs leading-relaxed mt-2" style="color:rgba(255,255,255,0.55);">
+          Deployed routing and warehouse automation pipelines across 12 regions.
+        </p>
+      </div>
+      <div class="reveal d3 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-sm text-white/80 mb-1">Elena Park</p>
+        <p class="text-xs uppercase tracking-[0.2em]" style="color:rgba(255,255,255,0.35);">Staff PM, AI Platforms · Amazon Logistics</p>
+        <p class="text-xs leading-relaxed mt-2" style="color:rgba(255,255,255,0.55);">
+          Led ETA risk and dock scheduling systems used by thousands of operators.
+        </p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -631,7 +701,7 @@
       <span class="text-xs" style="color:rgba(255,255,255,0.55);">Series A demo track</span>
     </div>
     <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.65);">
-      Expected range: $3k–$8k per month for guided build + components.
+      Expected range: $3k–$8k per month covering platform access, pre-built components, and expert support.
       Typical timeline: 6–8 weeks to a demoable logistics prototype.
     </p>
   </div>
