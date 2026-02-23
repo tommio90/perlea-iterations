@@ -173,7 +173,7 @@
 
     <div class="hidden md:flex items-center gap-10">
       <a href="#who"          class="text-sm text-white/40 hover:text-white/80 transition-colors">Who It's For</a>
-      <a href="#capabilities" class="text-sm text-white/40 hover:text-white/80 transition-colors">The System</a>
+      <a href="#capabilities" class="text-sm text-white/40 hover:text-white/80 transition-colors">How it Works</a>
       <a href="#waitlist"     class="text-sm text-white/40 hover:text-white/80 transition-colors">Waitlist</a>
     </div>
 
@@ -189,9 +189,13 @@
   <!-- Dark base layer the canvas lightens over (matches App.tsx bg-[#1A1A1B]) -->
   <div class="absolute inset-0" style="background:#0d0d0d;"></div>
 
+  <!-- Logistics visual layer -->
+  <div class="absolute inset-0"
+       style="background-image:url('https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=2400&auto=format&fit=crop'); background-size:cover; background-position:center; filter:contrast(1.05) saturate(0.9); opacity:0.55;"></div>
+
   <!-- WebGL canvas: mix-blend-mode lighten over the dark base (matches App.tsx) -->
   <canvas id="gradient-blinds" class="absolute inset-0 w-full h-full"
-          style="display:block; mix-blend-mode:lighten;"></canvas>
+          style="display:block; mix-blend-mode:lighten; opacity:0.28;"></canvas>
 
   <!-- Bottom fade -->
   <div class="absolute bottom-0 left-0 right-0 h-72 pointer-events-none"
@@ -205,7 +209,7 @@
   <div class="relative z-10 min-h-screen flex flex-col justify-center px-8 pt-28 pb-24 max-w-5xl mx-auto">
 
     <div class="reveal mb-6">
-      <span class="text-[11px] tracking-[0.25em] uppercase" style="color:rgba(255,255,255,0.65);">AI for Logistics Builders</span>
+      <span class="text-[11px] tracking-[0.25em] uppercase" style="color:rgba(255,255,255,0.65);">Perlea Logistics AI Studio</span>
     </div>
 
     <h1 class="reveal d1 serif font-bold leading-[1.05] text-white mb-10"
@@ -216,17 +220,21 @@
 
     <p class="reveal d2 text-base font-light leading-relaxed max-w-sm mb-12"
        style="color:rgba(255,255,255,0.72); text-shadow: 0 1px 12px rgba(0,0,0,0.95);">
-      Get hands-on experience building AI apps for logistics and supply chain. Guided tutorials and pre-built components let you launch a demo in weeks.
+      Build a demo-ready AI app for [Specific Logistics Problem e.g., predictive freight pricing] in just 8 weeks. Use our pre-built components and expert-led tutorials.
     </p>
 
-    <div class="reveal d3 flex items-center gap-8 mb-16">
+    <p class="reveal d3 text-xs tracking-[0.18em] uppercase mb-10" style="color:rgba(255,255,255,0.55);">
+      Typical pricing: $3k–$8k per month · 6–8 week demo track
+    </p>
+
+    <div class="reveal d4 flex items-center gap-8 mb-16">
       <a href="#waitlist"
          class="text-sm font-medium text-black bg-white px-7 py-3.5 rounded-full hover:bg-white/90 transition-colors">
         Get Early Access
       </a>
       <a href="#who" class="text-sm hover:text-white transition-colors tracking-wide"
          style="color:rgba(255,255,255,0.60);">
-        The system ↓
+        How it works ↓
       </a>
     </div>
 
@@ -247,7 +255,7 @@
         Build a Series A-ready demo<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">in 6–8 weeks.</em>
       </h2>
       <p class="reveal d2 text-sm max-w-md leading-relaxed" style="color:rgba(255,255,255,0.38);">
-        Start with pre-built logistics components and ship a demo that proves the product, not just the concept.
+        Start with pre-built logistics components and ship a demo that proves the product, not just the concept. Popular builds include predictive freight pricing, route optimization, demand forecasting, and dock scheduling.
       </p>
     </div>
 
