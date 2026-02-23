@@ -191,7 +191,7 @@
 
   <!-- Logistics visual layer -->
   <div class="absolute inset-0"
-       style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2400&auto=format&fit=crop'); background-size:cover; background-position:center; filter:grayscale(1) contrast(1) saturate(0.8) blur(1px); opacity:0.18;"></div>
+       style="background-image:linear-gradient(120deg, rgba(5,5,5,0.7) 0%, rgba(5,5,5,0.25) 60%), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1800&auto=format&fit=crop'), url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1800&auto=format&fit=crop'); background-size:cover, 58% 58%, 50% 50%; background-position:center, 76% 30%, 72% 74%; background-repeat:no-repeat; filter:grayscale(0.15) contrast(1.05) saturate(1.05); opacity:0.38;"></div>
 
   <!-- WebGL canvas: mix-blend-mode lighten over the dark base (matches App.tsx) -->
   <canvas id="gradient-blinds" class="absolute inset-0 w-full h-full"
@@ -220,10 +220,10 @@
 
     <p class="reveal d2 text-base font-light leading-relaxed max-w-sm mb-12"
        style="color:rgba(255,255,255,0.72); text-shadow: 0 1px 12px rgba(0,0,0,0.95);">
-      Build AI-powered logistics apps with our pre-built React components and expert-led tutorials. Create demo-ready applications for use cases like predictive freight pricing, route optimization, and warehouse automation in as little as 8 weeks.
+      Empower your consulting with AI-driven logistics demos. Use pre-built components and expert guidance to showcase solutions like predictive freight pricing, route optimization, and warehouse automation. Go from concept to CTO-ready demo in weeks.
     </p>
 
-    <div class="reveal d3 flex items-center gap-8 mb-16">
+    <div class="reveal d3 flex items-center gap-8 mb-8">
       <a href="#waitlist"
          class="text-sm font-medium text-black bg-white px-7 py-3.5 rounded-full hover:bg-white/90 transition-colors">
         Get Early Access
@@ -232,6 +232,11 @@
          style="color:rgba(255,255,255,0.60);">
         How it works ↓
       </a>
+    </div>
+
+    <div class="reveal d4 flex items-center gap-3 text-xs tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.35);">
+      <span style="color:rgba(255,69,0,0.65);">Ambient signal layer</span>
+      <span style="color:rgba(255,255,255,0.35);">Move your cursor to reveal demand hotspots</span>
     </div>
 
   </div>
@@ -251,7 +256,7 @@
         Build a Series A-ready demo<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">in 6–8 weeks.</em>
       </h2>
       <p class="reveal d2 text-sm max-w-md leading-relaxed" style="color:rgba(255,255,255,0.38);">
-        Start with pre-built logistics components and ship a demo that proves the product, not just the concept. Popular builds include predictive freight pricing, route optimization, demand forecasting, and dock scheduling.
+        Start with pre-built logistics components like rate-band charts, carrier-match boards, ETA risk tables, and dock scheduler timelines. Ship a demo that proves the product, not just the concept. Popular builds include predictive freight pricing, route optimization, demand forecasting, and dock scheduling.
       </p>
     </div>
 
@@ -321,6 +326,26 @@
       <p class="reveal d2 text-sm leading-relaxed max-w-xs" style="color:rgba(255,255,255,0.38);">
         Not features. Outcomes. Each one removes a ceiling that traditional learning never touches.
       </p>
+      <div class="reveal d3 mt-8 grid grid-cols-3 gap-3">
+        <div class="border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px; overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=900&auto=format&fit=crop" alt="Freight pricing dashboard" class="w-full h-20 object-cover">
+          <div class="px-3 py-2 text-[10px] tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.45);">Pricing bands</div>
+        </div>
+        <div class="border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px; overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=900&auto=format&fit=crop" alt="Route optimization map" class="w-full h-20 object-cover">
+          <div class="px-3 py-2 text-[10px] tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.45);">Route planner</div>
+        </div>
+        <div class="border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px; overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?q=80&w=900&auto=format&fit=crop" alt="Warehouse automation console" class="w-full h-20 object-cover">
+          <div class="px-3 py-2 text-[10px] tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.45);">Warehouse ops</div>
+        </div>
+      </div>
+      <div class="reveal d4 mt-6 flex items-center gap-4">
+        <a href="#waitlist" class="text-xs tracking-[0.2em] uppercase px-5 py-3 border border-white/[0.2] hover:border-white/40 transition-colors" style="border-radius:2px;">
+          Live Demo
+        </a>
+        <span class="text-xs" style="color:rgba(255,255,255,0.35);">See pre-built components in motion</span>
+      </div>
     </div>
 
     <!-- Right col: CardSwap -->
@@ -504,6 +529,22 @@ def forecast_price(payload: ForecastRequest):
     bands = model.predict_bands(features)
     return {"lane": payload.lane_id, "bands": bands}</code></pre>
       </div>
+      <div class="reveal d3 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Component kit</p>
+        <ul class="text-sm leading-relaxed space-y-3" style="color:rgba(255,255,255,0.6);">
+          <li>RateBand charts for lane pricing with confidence intervals.</li>
+          <li>CarrierMatch board with SLA fit scores and filters.</li>
+          <li>ETARisk table with alert thresholds and drilldowns.</li>
+        </ul>
+      </div>
+      <div class="reveal d4 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Dashboard tiles</p>
+        <ul class="text-sm leading-relaxed space-y-3" style="color:rgba(255,255,255,0.6);">
+          <li>DockScheduler timeline for live appointment changes.</li>
+          <li>WarehouseHeatmap for pick-path density and labor impact.</li>
+          <li>DelayPulse widget for at-a-glance ETA risk.</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -561,7 +602,7 @@ def forecast_price(payload: ForecastRequest):
         Learn from operators<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">who ship logistics AI.</em>
       </h2>
       <p class="reveal d2 text-sm max-w-md leading-relaxed" style="color:rgba(255,255,255,0.38);">
-        The tutorials are led by practitioners who have deployed production logistics AI systems at scale — not generic course instructors.
+        The tutorials are led by practitioners who have deployed production logistics AI systems at scale — former Flexport, DHL, and Amazon Logistics leads. Expect hands-on guidance: weekly build sessions, office hours, and async code review on your demo.
       </p>
     </div>
     <div class="grid gap-4">
@@ -584,6 +625,89 @@ def forecast_price(payload: ForecastRequest):
         <p class="text-xs uppercase tracking-[0.2em]" style="color:rgba(255,255,255,0.35);">Staff PM, AI Platforms · Amazon Logistics</p>
         <p class="text-xs leading-relaxed mt-2" style="color:rgba(255,255,255,0.55);">
           Led ETA risk and dock scheduling systems used by thousands of operators.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     TESTIMONIALS — social proof
+──────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
+
+<section class="max-w-6xl mx-auto px-8 py-28">
+  <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
+    <div>
+      <p class="reveal text-[11px] tracking-[0.25em] uppercase mb-5" style="color:rgba(255,255,255,0.25);">Case studies</p>
+      <h2 class="reveal d1 serif font-bold text-white mb-4 leading-[1.1]" style="font-size: clamp(32px, 4vw, 52px);">
+        Proof from real<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">client-facing demos.</em>
+      </h2>
+      <p class="reveal d2 text-sm max-w-md leading-relaxed" style="color:rgba(255,255,255,0.38);">
+        Consultants use Perlea to win stakeholder buy-in faster by showing working demos that map directly to client KPIs.
+      </p>
+    </div>
+    <div class="grid gap-4">
+      <div class="reveal d1 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-sm text-white/80 mb-1">Global 3PL — Pricing Strategy</p>
+        <p class="text-xs uppercase tracking-[0.2em]" style="color:rgba(255,255,255,0.35);">6-week demo</p>
+        <p class="text-xs leading-relaxed mt-2" style="color:rgba(255,255,255,0.55);">
+          Built a lane pricing cockpit with confidence bands and negotiation guidance. Secured exec approval for a pilot in two meetings.
+        </p>
+      </div>
+      <div class="reveal d2 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-sm text-white/80 mb-1">Retailer — Warehouse Ops</p>
+        <p class="text-xs uppercase tracking-[0.2em]" style="color:rgba(255,255,255,0.35);">8-week demo</p>
+        <p class="text-xs leading-relaxed mt-2" style="color:rgba(255,255,255,0.55);">
+          Demonstrated pick-path optimization and labor impact forecasting. Earned a funded discovery with operations leadership.
+        </p>
+      </div>
+      <div class="reveal d3 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-sm text-white/80 mb-1">Parcel Network — Routing</p>
+        <p class="text-xs uppercase tracking-[0.2em]" style="color:rgba(255,255,255,0.35);">5-week demo</p>
+        <p class="text-xs leading-relaxed mt-2" style="color:rgba(255,255,255,0.55);">
+          Built a multi-stop route planner with carbon and cost tradeoffs. Won stakeholder sign-off to expand into a full MVP.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     PRICING — ranges and expectations
+──────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
+
+<section class="max-w-6xl mx-auto px-8 py-28">
+  <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
+    <div>
+      <p class="reveal text-[11px] tracking-[0.25em] uppercase mb-5" style="color:rgba(255,255,255,0.25);">Pricing</p>
+      <h2 class="reveal d1 serif font-bold text-white mb-4 leading-[1.1]" style="font-size: clamp(32px, 4vw, 52px);">
+        Transparent ranges,<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">no surprises.</em>
+      </h2>
+      <p class="reveal d2 text-sm max-w-md leading-relaxed" style="color:rgba(255,255,255,0.38);">
+        Choose a guided demo track or bring a custom client need. All plans include access to pre-built components and expert support.
+      </p>
+    </div>
+    <div class="grid gap-4">
+      <div class="reveal d1 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Pilot</p>
+        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.65);">
+          $3k–$5k / month. 1 guided demo, weekly build sessions, and async review.
+        </p>
+      </div>
+      <div class="reveal d2 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Team</p>
+        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.65);">
+          $6k–$12k / month. Multiple demos, shared component library, and stakeholder readouts.
+        </p>
+      </div>
+      <div class="reveal d3 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Enterprise</p>
+        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.65);">
+          Custom quote. Dedicated advisor, security review, and tailored integrations for client data.
         </p>
       </div>
     </div>
