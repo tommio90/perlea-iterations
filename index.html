@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perlea — Build Logistics AI Demos Fast</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root { --accent: #FF4500; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #050505;
+      color: #fff;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--accent); color: #fff; }
+
+    .serif { font-family: 'Playfair Display', serif; }
+
+    /* Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* Nav compact on scroll */
+    #nav.compact {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(5,5,5,0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    /* Horizontal rule */
+    .rule { border: none; border-top: 1px solid rgba(255,255,255,0.08); }
+
+    /* Noise (very subtle) */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+    }
+
+    /* Card hover */
+    .work-card { transition: border-color 0.25s ease; }
+    .work-card:hover { border-color: rgba(255,69,0,0.3); }
+
+    /* Stagger delays */
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.3s; }
+    .d4 { transition-delay: 0.4s; }
+
+    /* ── CardSwap ── */
+    .swap-outer {
+      position: relative;
+      width: clamp(300px, 42vw, 420px);
+      height: clamp(380px, 54vw, 520px);
+      flex-shrink: 0;
+    }
+
+    /* matches React: perspective-[1200px] transform-gpu */
+    .swap-perspective {
+      perspective: 1200px;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* matches React inner: absolute inset-0 [transform-style:preserve-3d] */
+    .swap-stage {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+    }
+
+    /* matches React Card: absolute top-1/2 left-1/2 rounded-xl border
+       [transform-style:preserve-3d] [will-change:transform] [backface-visibility:hidden] */
+    .swap-card {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      transform-style: preserve-3d;
+      will-change: transform;
+      backface-visibility: hidden;
+      overflow: hidden;
+      cursor: pointer;
+      /* width/height set inline to match React's style prop */
+      width: 340px;
+      height: 420px;
+    }
+
+    /* matches App.tsx: relative h-full w-full flex flex-col */
+    .swap-card-body {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* matches App.tsx: flex-1 overflow-hidden (image area) */
+    .swap-card-visual {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* CSS gradient "image" fill */
+    .swap-card-visual-fill {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.7s ease;
+    }
+    .swap-card:hover .swap-card-visual-fill {
+      transform: scale(1.06);
+    }
+
+    /* matches App.tsx: absolute inset-0 bg-gradient-to-t from-black/60 to-transparent */
+    .swap-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+    }
+
+    /* matches App.tsx: absolute bottom-0 left-0 right-0 p-8 text-white */
+    .swap-card-text {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem;
+      color: white;
+    }
+
+    /* capability tag */
+    .swap-card-tag {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 0.5rem;
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ────────────────────────────────────
+     NAV
+──────────────────────────────────── -->
+<nav id="nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-400 py-7">
+  <div class="max-w-5xl mx-auto px-8 flex items-center justify-between">
+
+    <a href="#" class="serif text-xl font-bold tracking-tight">Perlea.</a>
+
+    <div class="hidden md:flex items-center gap-10">
+      <a href="#who"          class="text-sm text-white/40 hover:text-white/80 transition-colors">Who It's For</a>
+      <a href="#capabilities" class="text-sm text-white/40 hover:text-white/80 transition-colors">The System</a>
+      <a href="#waitlist"     class="text-sm text-white/40 hover:text-white/80 transition-colors">Waitlist</a>
+    </div>
+
+  </div>
+</nav>
+
+
+<!-- ────────────────────────────────────
+     HERO — GradientBlinds WebGL bg
+──────────────────────────────────── -->
+<section class="relative min-h-screen overflow-hidden">
+
+  <!-- Dark base layer the canvas lightens over (matches App.tsx bg-[#1A1A1B]) -->
+  <div class="absolute inset-0" style="background:#0d0d0d;"></div>
+
+  <!-- WebGL canvas: mix-blend-mode lighten over the dark base (matches App.tsx) -->
+  <canvas id="gradient-blinds" class="absolute inset-0 w-full h-full"
+          style="display:block; mix-blend-mode:lighten;"></canvas>
+
+  <!-- Bottom fade -->
+  <div class="absolute bottom-0 left-0 right-0 h-72 pointer-events-none"
+       style="background: linear-gradient(to top, #050505 0%, rgba(5,5,5,0.85) 40%, transparent 100%);"></div>
+
+  <!-- Left vignette — dark gradient behind the text block -->
+  <div class="absolute inset-0 pointer-events-none"
+       style="background: linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.55) 40%, transparent 75%);"></div>
+
+  <!-- Hero text: relative z-10 so it sits above the canvas -->
+  <div class="relative z-10 min-h-screen flex flex-col justify-center px-8 pt-28 pb-24 max-w-5xl mx-auto">
+
+    <div class="reveal mb-6">
+      <span class="text-[11px] tracking-[0.25em] uppercase" style="color:rgba(255,255,255,0.65);">AI for Logistics Builders</span>
+    </div>
+
+    <h1 class="reveal d1 serif font-bold leading-[1.05] text-white mb-10"
+        style="font-size: clamp(52px, 6.5vw, 96px); text-shadow: 0 2px 32px rgba(0,0,0,0.9), 0 1px 8px rgba(0,0,0,0.8);">
+      Build AI-Powered<br>Logistics Apps.<br>
+      <em class="font-normal" style="color:rgba(255,255,255,0.75);">Fast.</em>
+    </h1>
+
+    <p class="reveal d2 text-base font-light leading-relaxed max-w-sm mb-12"
+       style="color:rgba(255,255,255,0.72); text-shadow: 0 1px 12px rgba(0,0,0,0.95);">
+      Get hands-on experience building AI apps for logistics and supply chain. Guided tutorials and pre-built components let you launch a demo in weeks.
+    </p>
+
+    <div class="reveal d3 flex items-center gap-8 mb-16">
+      <a href="#waitlist"
+         class="text-sm font-medium text-black bg-white px-7 py-3.5 rounded-full hover:bg-white/90 transition-colors">
+        Get Early Access
+      </a>
+      <a href="#who" class="text-sm hover:text-white transition-colors tracking-wide"
+         style="color:rgba(255,255,255,0.60);">
+        The system ↓
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     DEMOS — logistics/supply chain examples
+──────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
+
+<section class="max-w-6xl mx-auto px-8 py-28">
+  <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
+    <div>
+      <p class="reveal text-[11px] tracking-[0.25em] uppercase mb-5" style="color:rgba(255,255,255,0.25);">Demo examples</p>
+      <h2 class="reveal d1 serif font-bold text-white mb-4 leading-[1.1]" style="font-size: clamp(34px, 4.2vw, 56px);">
+        Build a Series A-ready demo<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">in 6–8 weeks.</em>
+      </h2>
+      <p class="reveal d2 text-sm max-w-md leading-relaxed" style="color:rgba(255,255,255,0.38);">
+        Start with pre-built logistics components and ship a demo that proves the product, not just the concept.
+      </p>
+    </div>
+
+    <div class="grid gap-4">
+      <div class="reveal d1 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Carrier matching</p>
+        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">
+          AI matching console that ranks carriers by SLA fit, lane history, and rate volatility. Demo-ready with live filters and explainable scoring.
+        </p>
+      </div>
+      <div class="reveal d2 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Delay prediction</p>
+        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">
+          Predict late shipments with external signals and lane history. Includes a proactive alerts dashboard and ETA risk summaries.
+        </p>
+      </div>
+      <div class="reveal d3 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Doc automation</p>
+        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">
+          Parse BOLs, invoices, and PODs into structured data with audit trails. Showcase accuracy, confidence, and exceptions.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     CAPABILITIES — outcome-first CardSwap
+──────────────────────────────────── -->
+<section id="capabilities" class="pt-36 pb-24 px-8 bg-[#050505]" style="min-height:640px;">
+  <div class="max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-24">
+
+    <!-- Left col -->
+    <div class="flex-1 min-w-0">
+      <p class="reveal text-[11px] tracking-[0.25em] uppercase mb-5" style="color:rgba(255,255,255,0.25);">The system</p>
+      <p class="reveal d1 serif font-bold text-white mb-6 leading-[1.1]" style="font-size: clamp(36px, 4.5vw, 62px);">
+        Five ways your<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">learning compounds.</em>
+      </p>
+      <p class="reveal d2 text-sm leading-relaxed max-w-xs" style="color:rgba(255,255,255,0.38);">
+        Not features. Outcomes. Each one removes a ceiling that traditional learning never touches.
+      </p>
+    </div>
+
+    <!-- Right col: CardSwap -->
+    <div class="reveal d2 flex-shrink-0 flex items-center justify-center">
+      <div class="swap-outer">
+        <div class="swap-perspective">
+          <div class="swap-stage" id="card-swap">
+
+            <!-- Card 1 -->
+            <div class="swap-card">
+              <div class="swap-card-body">
+                <div class="swap-card-visual">
+                  <div class="swap-card-visual-fill" style="background: radial-gradient(ellipse at 30% 40%, #FF4500 0%, #8B1A00 35%, #1a0800 65%, #0a0a0a 100%);"></div>
+                  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:32px 32px;"></div>
+                  <div class="swap-card-overlay"></div>
+                </div>
+                <div class="swap-card-text">
+                  <span class="swap-card-tag">Precision</span>
+                  <h3 class="serif text-xl font-bold mb-2 leading-snug">Your exact gaps,<br>nothing more</h3>
+                  <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;max-width:80%;">
+                    A living model of what you know and what you're missing. No generic curriculum — a path calibrated to your specific goal. Closes the right gaps. Skips the rest.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="swap-card">
+              <div class="swap-card-body">
+                <div class="swap-card-visual">
+                  <div class="swap-card-visual-fill" style="background: radial-gradient(ellipse at 70% 30%, #1a3a5c 0%, #0d1f30 40%, #080d12 70%, #0a0a0a 100%);"></div>
+                  <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.07) 1px,transparent 1px);background-size:24px 24px;"></div>
+                  <div class="swap-card-overlay"></div>
+                  <div style="position:absolute;top:24px;left:24px;font-family:monospace;font-size:11px;color:rgba(255,255,255,0.15);line-height:1.8;">
+                    <div>$ perlea scaffold --track ai-tool</div>
+                    <div style="color:rgba(255,69,0,0.5);">✓ gaps identified (3)</div>
+                    <div>✓ path generated</div>
+                    <div style="color:rgba(255,255,255,0.08);">▸ building artifact...</div>
+                  </div>
+                </div>
+                <div class="swap-card-text">
+                  <span class="swap-card-tag">Ownership</span>
+                  <h3 class="serif text-xl font-bold mb-2 leading-snug">You can explain<br>everything you built</h3>
+                  <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;max-width:80%;">
+                    The agent scaffolds execution. You own every decision. When someone asks how your system works, you have a real answer — because you built it.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="swap-card">
+              <div class="swap-card-body">
+                <div class="swap-card-visual">
+                  <div class="swap-card-visual-fill" style="background: radial-gradient(ellipse at 50% 60%, #2a1540 0%, #150a25 45%, #0a0a0a 100%);"></div>
+                  <svg style="position:absolute;inset:0;width:100%;height:60%;opacity:0.12;" viewBox="0 0 340 200" preserveAspectRatio="none">
+                    <path d="M0,100 C80,60 160,140 340,80" stroke="white" stroke-width="1" fill="none"/>
+                    <path d="M0,130 C100,90 200,160 340,110" stroke="white" stroke-width="0.5" fill="none"/>
+                    <path d="M0,70 C60,40 180,120 340,50" stroke="#FF4500" stroke-width="0.8" fill="none" opacity="0.5"/>
+                    <circle cx="120" cy="88" r="3" fill="white" opacity="0.4"/>
+                    <circle cx="220" cy="128" r="3" fill="#FF4500" opacity="0.6"/>
+                  </svg>
+                  <div class="swap-card-overlay"></div>
+                </div>
+                <div class="swap-card-text">
+                  <span class="swap-card-tag">Reality</span>
+                  <h3 class="serif text-xl font-bold mb-2 leading-snug">Real work,<br>not exercises</h3>
+                  <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;max-width:80%;">
+                    Every milestone is a real project. Not a toy dataset, not a mock scenario. You're building the thing you actually need from the very first session.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="swap-card">
+              <div class="swap-card-body">
+                <div class="swap-card-visual">
+                  <div class="swap-card-visual-fill" style="background: radial-gradient(ellipse at 20% 70%, #0f2a15 0%, #081508 50%, #0a0a0a 100%);"></div>
+                  <div style="position:absolute;top:28px;left:28px;right:28px;">
+                    <div style="margin-bottom:10px;">
+                      <div style="font-size:10px;color:rgba(255,255,255,0.2);font-family:monospace;margin-bottom:4px;">prompt engineering</div>
+                      <div style="height:3px;background:rgba(255,255,255,0.06);border-radius:2px;"><div style="width:92%;height:100%;background:#FF4500;border-radius:2px;opacity:0.7;"></div></div>
+                    </div>
+                    <div style="margin-bottom:10px;">
+                      <div style="font-size:10px;color:rgba(255,255,255,0.2);font-family:monospace;margin-bottom:4px;">api integration</div>
+                      <div style="height:3px;background:rgba(255,255,255,0.06);border-radius:2px;"><div style="width:68%;height:100%;background:#FF4500;border-radius:2px;opacity:0.5;"></div></div>
+                    </div>
+                    <div>
+                      <div style="font-size:10px;color:rgba(255,255,255,0.2);font-family:monospace;margin-bottom:4px;">vector architecture</div>
+                      <div style="height:3px;background:rgba(255,255,255,0.06);border-radius:2px;"><div style="width:35%;height:100%;background:rgba(255,255,255,0.3);border-radius:2px;"></div></div>
+                    </div>
+                  </div>
+                  <div class="swap-card-overlay"></div>
+                </div>
+                <div class="swap-card-text">
+                  <span class="swap-card-tag">Velocity</span>
+                  <h3 class="serif text-xl font-bold mb-2 leading-snug">The next build<br>is always faster</h3>
+                  <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;max-width:80%;">
+                    Each project updates your graph. Proven skills get skipped. Gaps get targeted. You compound — every build makes the next one faster and deeper.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="swap-card">
+              <div class="swap-card-body">
+                <div class="swap-card-visual">
+                  <div class="swap-card-visual-fill" style="background: radial-gradient(ellipse at 60% 40%, #1a1a2e 0%, #0d0d1a 40%, #0a0a0a 100%);"></div>
+                  <div style="position:absolute;top:20px;left:20px;right:20px;">
+                    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:10px 14px;margin-bottom:8px;">
+                      <div style="font-size:10px;color:rgba(255,69,0,0.7);font-family:monospace;margin-bottom:4px;">● perlea.ai/u/you/artifact-01</div>
+                      <div style="font-size:10px;color:rgba(255,255,255,0.2);font-family:monospace;line-height:1.8;">
+                        <div>✓ deployed 4 hours ago</div>
+                        <div>✓ 47 unique visitors</div>
+                        <div style="color:rgba(255,69,0,0.4);">skills unlocked: 3</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swap-card-overlay"></div>
+                </div>
+                <div class="swap-card-text">
+                  <span class="swap-card-tag">Proof</span>
+                  <h3 class="serif text-xl font-bold mb-2 leading-snug">An artifact,<br>not a certificate</h3>
+                  <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;max-width:80%;">
+                    A live URL. A working API. Something that does something in the world. Not proof that you studied — proof that you built.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     WHO IT'S FOR — Persona cards
+──────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
+
+<section id="who" class="max-w-6xl mx-auto px-8 py-32">
+
+  <p class="reveal text-[11px] tracking-[0.25em] uppercase mb-5" style="color:rgba(255,255,255,0.25);">Who it's for</p>
+  <h2 class="reveal d1 serif font-bold text-white mb-4 leading-[1.1]" style="font-size: clamp(36px, 4.5vw, 58px);">
+    For people who need<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">to own what they build.</em>
+  </h2>
+  <p class="reveal d2 text-sm mb-16 max-w-md leading-relaxed" style="color:rgba(255,255,255,0.35);">
+    Not people who want to learn about AI. People who have a specific thing to build — and can't afford to wait.
+  </p>
+
+  <div class="grid md:grid-cols-2 gap-6">
+
+    <!-- Marcus -->
+    <div class="reveal d1 p-8 border border-white/[0.07] hover:border-white/[0.15] transition-colors" style="background:#0d0d0d; border-radius:2px;">
+      <div class="flex items-start gap-4 mb-6">
+        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#FF4500 0%,#6b0f00 100%);flex-shrink:0;"></div>
+        <div>
+          <p class="text-white text-sm font-medium mb-0.5">Marcus, 38</p>
+          <p style="color:rgba(255,255,255,0.3); font-size:12px;">Founder · Seed-stage · AI freight matching</p>
+        </div>
+      </div>
+
+      <p style="color:rgba(255,255,255,0.45); font-size:13px; line-height:1.75; margin-bottom:1.25rem;">
+        11 years of domain expertise. $1.2M raised. 2 engineers on the critical path.
+        Series A pitch in 11 weeks. He knows exactly what needs to be built.
+        He just can't build it himself — and he can't pull engineers off the core product.
+      </p>
+
+      <div style="border-left:2px solid #FF4500; padding-left:1rem; margin-bottom:1.5rem;">
+        <p class="serif italic" style="color:rgba(255,255,255,0.65); font-size:13px; line-height:1.65;">
+          "Built the AI prototype I needed for my Series A in 9 weeks — without a dedicated AI engineer."
+        </p>
+      </div>
+
+      <p style="color:#FF4500; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; font-weight:500;">
+        Your engineers are on the critical path. Your demo isn't.
+      </p>
+    </div>
+
+    <!-- Daniel -->
+    <div class="reveal d2 p-8 border border-white/[0.07] hover:border-white/[0.15] transition-colors" style="background:#0d0d0d; border-radius:2px;">
+      <div class="flex items-start gap-4 mb-6">
+        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#1a3a6b 0%,#0a1628 100%);flex-shrink:0;"></div>
+        <div>
+          <p class="text-white text-sm font-medium mb-0.5">Daniel, 31</p>
+          <p style="color:rgba(255,255,255,0.3); font-size:12px;">Senior PM · Series B SaaS · AI team</p>
+        </div>
+      </div>
+
+      <p style="color:rgba(255,255,255,0.45); font-size:13px; line-height:1.75; margin-bottom:1.25rem;">
+        Same AI feature in the backlog for 4 months. Won an internal hackathon where an engineer built everything.
+        Felt like a passenger in his own project. His ceiling: when engineering is busy, he's completely stuck.
+      </p>
+
+      <div style="border-left:2px solid rgba(255,69,0,0.45); padding-left:1rem; margin-bottom:1.5rem;">
+        <p class="serif italic" style="color:rgba(255,255,255,0.65); font-size:13px; line-height:1.65;">
+          "Demoed the prototype in Thursday's roadmap review. Engineering greenlit the full build the same week."
+        </p>
+      </div>
+
+      <p style="color:#FF4500; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; font-weight:500;">
+        Stop writing PRDs for ideas you could just build.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     HOW IT COMPOUNDS — Flywheel
+──────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
+
+<section class="max-w-5xl mx-auto px-8 py-32">
+
+  <p class="reveal text-[11px] tracking-[0.25em] uppercase mb-5" style="color:rgba(255,255,255,0.25);">How it compounds</p>
+  <h2 class="reveal d1 serif font-bold text-white mb-4 leading-[1.1]" style="font-size: clamp(36px, 4.5vw, 58px);">
+    Skills → Artifacts → Network
+  </h2>
+  <p class="reveal d2 text-sm mb-20 max-w-lg leading-relaxed" style="color:rgba(255,255,255,0.35);">
+    Most tools give you output. Perlea gives you a flywheel. Each layer compounds the one before it — and none of it resets when you close the tab.
+  </p>
+
+  <!-- Flywheel nodes -->
+  <div class="grid md:grid-cols-3 gap-px" style="background:rgba(255,255,255,0.05);">
+
+    <div class="reveal p-10" style="background:#050505;">
+      <div class="text-[#FF4500] text-xs font-mono mb-6 opacity-60">01</div>
+      <h3 class="serif text-xl font-bold text-white mb-3">Skills</h3>
+      <p class="text-white/30 text-sm leading-relaxed mb-6">
+        Your personal learning graph. Knows your gaps, your domain, your pace. Gets more precise with every session — the longer you use it, the harder it is to replace.
+      </p>
+      <p class="text-[11px] tracking-widest uppercase" style="color:rgba(255,69,0,0.5);">Personalization moat</p>
+    </div>
+
+    <div class="reveal d1 p-10" style="background:#050505;">
+      <div class="text-[#FF4500] text-xs font-mono mb-6 opacity-60">02</div>
+      <h3 class="serif text-xl font-bold text-white mb-3">Artifacts</h3>
+      <p class="text-white/30 text-sm leading-relaxed mb-6">
+        Every project produces a deployable object. Not a quiz score — a working system. Each artifact carries the skill path that created it, which means it can teach the next person.
+      </p>
+      <p class="text-[11px] tracking-widest uppercase" style="color:rgba(255,69,0,0.5);">Portable proof of capability</p>
+    </div>
+
+    <div class="reveal d2 p-10" style="background:#050505;">
+      <div class="text-[#FF4500] text-xs font-mono mb-6 opacity-60">03</div>
+      <h3 class="serif text-xl font-bold text-white mb-3">Network</h3>
+      <p class="text-white/30 text-sm leading-relaxed mb-6">
+        Artifacts become shared primitives. The next learner starts where you left off. Every person who builds on Perlea makes the platform more valuable for the person who comes after them.
+      </p>
+      <p class="text-[11px] tracking-widest uppercase" style="color:rgba(255,69,0,0.5);">Data flywheel</p>
+    </div>
+
+  </div>
+
+  <!-- The compounding statement -->
+  <div class="reveal d3 mt-16 pt-12 border-t border-white/[0.06]">
+    <p class="serif italic text-white/40 leading-relaxed" style="font-size: clamp(18px, 2.5vw, 26px); max-width:700px;">
+      "A Lovable user at month 12 and a Perlea user at month 12 both have a prototype. The Perlea user has the next 10 inside them."
+    </p>
+  </div>
+
+</section>
+
+
+<!-- ────────────────────────────────────
+     THE DIFFERENCE — vs Lovable positioning
+──────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
+
+<section class="max-w-5xl mx-auto px-8 py-32">
+
+  <p class="reveal text-[11px] tracking-[0.25em] uppercase mb-5" style="color:rgba(255,255,255,0.25);">The difference</p>
+  <h2 class="reveal d1 serif font-bold text-white mb-16 leading-[1.1]" style="font-size: clamp(36px, 4.5vw, 58px);">
+    Lovable builds the thing.<br><span style="color:#FF4500;">Perlea builds the person.</span>
+  </h2>
+
+  <div class="grid md:grid-cols-2 gap-16 items-start">
+
+    <div class="reveal">
+      <p class="text-[11px] tracking-[0.25em] uppercase mb-8" style="color:rgba(255,255,255,0.2);">What tools give you</p>
+      <ul class="space-y-5 text-sm leading-relaxed" style="color:rgba(255,255,255,0.25);">
+        <li class="flex gap-4"><span style="color:rgba(255,255,255,0.1); flex-shrink:0;">—</span>An artifact you can't explain.</li>
+        <li class="flex gap-4"><span style="color:rgba(255,255,255,0.1); flex-shrink:0;">—</span>Code that breaks when you try to extend it.</li>
+        <li class="flex gap-4"><span style="color:rgba(255,255,255,0.1); flex-shrink:0;">—</span>Output without ownership.</li>
+        <li class="flex gap-4"><span style="color:rgba(255,255,255,0.1); flex-shrink:0;">—</span>A skill gap that resets with every new project.</li>
+        <li class="flex gap-4"><span style="color:rgba(255,255,255,0.1); flex-shrink:0;">—</span>A moat that's racing against Anthropic and OpenAI.</li>
+      </ul>
+    </div>
+
+    <div class="reveal d1">
+      <p class="text-[11px] tracking-[0.25em] uppercase mb-8" style="color:rgba(255,69,0,0.5);">What Perlea gives you</p>
+      <ul class="space-y-5 text-sm leading-relaxed" style="color:rgba(255,255,255,0.60);">
+        <li class="flex gap-4"><span class="text-[#FF4500] flex-shrink-0">—</span>Capability you own permanently.</li>
+        <li class="flex gap-4"><span class="text-[#FF4500] flex-shrink-0">—</span>Systems you can maintain, extend, and explain.</li>
+        <li class="flex gap-4"><span class="text-[#FF4500] flex-shrink-0">—</span>Understanding that compounds with every build.</li>
+        <li class="flex gap-4"><span class="text-[#FF4500] flex-shrink-0">—</span>A skill graph that gets more valuable the longer you use it.</li>
+        <li class="flex gap-4"><span class="text-[#FF4500] flex-shrink-0">—</span>A network of artifacts that makes the next learner faster.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     WAITLIST — with persona segmentation
+──────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
+
+<section id="waitlist" class="max-w-5xl mx-auto px-8 py-40">
+
+  <h2 class="reveal serif font-bold leading-tight text-white mb-4" style="font-size: clamp(40px, 5.5vw, 72px);">
+    Which one<br><em class="font-normal text-white/30">are you?</em>
+  </h2>
+
+  <p class="reveal d1 text-sm mb-12 max-w-sm leading-relaxed" style="color:rgba(255,255,255,0.30);">
+    Tell us who you are. We'll make sure the first thing you build is the thing you actually need.
+  </p>
+
+  <div class="reveal d1 p-6 border border-white/[0.08] mb-12" style="background:#0d0d0d; border-radius:2px;">
+    <div class="flex flex-wrap items-center gap-3 mb-3">
+      <span class="text-[11px] tracking-[0.25em] uppercase" style="color:rgba(255,255,255,0.35);">Pricing estimate</span>
+      <span class="text-xs" style="color:rgba(255,255,255,0.55);">Series A demo track</span>
+    </div>
+    <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.65);">
+      Expected range: $3k–$8k per month for guided build + components.
+      Typical timeline: 6–8 weeks to a demoable logistics prototype.
+    </p>
+  </div>
+
+  <!-- Persona selector -->
+  <div class="reveal d2 flex flex-wrap gap-3 mb-10" id="persona-selector">
+    <button onclick="selectPersona(this, 'founder')"
+      class="persona-btn px-5 py-2.5 text-sm border border-white/[0.12] text-white/40 hover:border-white/30 hover:text-white/70 transition-all"
+      style="border-radius:2px;">
+      Founder
+    </button>
+    <button onclick="selectPersona(this, 'pm')"
+      class="persona-btn px-5 py-2.5 text-sm border border-white/[0.12] text-white/40 hover:border-white/30 hover:text-white/70 transition-all"
+      style="border-radius:2px;">
+      Product Manager
+    </button>
+    <button onclick="selectPersona(this, 'dev')"
+      class="persona-btn px-5 py-2.5 text-sm border border-white/[0.12] text-white/40 hover:border-white/30 hover:text-white/70 transition-all"
+      style="border-radius:2px;">
+      Developer
+    </button>
+    <button onclick="selectPersona(this, 'other')"
+      class="persona-btn px-5 py-2.5 text-sm border border-white/[0.12] text-white/40 hover:border-white/30 hover:text-white/70 transition-all"
+      style="border-radius:2px;">
+      Other
+    </button>
+  </div>
+
+  <!-- Persona micro-message -->
+  <p id="persona-msg" class="reveal d3 text-sm mb-10 leading-relaxed transition-all duration-300"
+     style="color:rgba(255,69,0,0.7); min-height:1.4rem; font-style:italic;"></p>
+
+  <!-- Email form -->
+  <div class="reveal d3 flex flex-col sm:flex-row gap-3 max-w-md">
+    <input type="hidden" id="persona-value" value="">
+    <input
+      type="email"
+      placeholder="your@email.com"
+      class="flex-1 bg-transparent border border-white/10 text-white placeholder-white/20 px-6 py-4 text-sm focus:outline-none focus:border-white/25 transition-colors"
+      style="border-radius:2px;"
+    />
+    <button
+      class="flex-shrink-0 bg-white text-black text-sm font-medium px-8 py-4 hover:bg-white/90 transition-colors whitespace-nowrap"
+      style="border-radius:2px;">
+      Get Early Access →
+    </button>
+  </div>
+
+</section>
+
+
+
+<!-- ────────────────────────────────────
+     FOOTER
+──────────────────────────────────── -->
+<footer class="border-t border-white/[0.06] bg-[#050505] overflow-hidden">
+
+  <!-- Giant text -->
+  <div class="max-w-full overflow-hidden px-4 pt-16 pb-4">
+    <p class="serif font-bold text-white/[0.04] leading-none tracking-tighter select-none"
+       style="font-size: clamp(80px, 14vw, 200px);">
+      PERLEA.
+    </p>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-8 pb-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+    <p class="text-white/20 text-xs tracking-wide">© 2026 Perlea AI</p>
+    <div class="flex gap-8">
+      <a href="#who"        class="text-white/20 text-xs hover:text-white/50 transition-colors tracking-wide">Who It's For</a>
+      <a href="#capabilities" class="text-white/20 text-xs hover:text-white/50 transition-colors tracking-wide">The System</a>
+      <a href="#waitlist"  class="text-white/20 text-xs hover:text-white/50 transition-colors tracking-wide">Waitlist</a>
+    </div>
+  </div>
+
+</footer>
+
+
+<!-- ────────────────────────────────────
+     JS
+──────────────────────────────────── -->
+<script>
+  // ─────────────────────────────────────────────────────────────
+  //  GradientBlinds — exact port of Component.tsx
+  //  Exact shaders | pixel-space Y-flipped mouse |
+  //  exponential dampening | blindMinWidth scaling
+  // ─────────────────────────────────────────────────────────────
+  (function initGradientBlinds() {
+
+    const COLORS           = ['#FF4500','#FF2000','#8B1000','#2a0500','#080808'];
+    const ANGLE            = -15;
+    const NOISE            = 0.20;
+    const BLIND_COUNT      = 20;
+    const BLIND_MIN_WIDTH  = 40;
+    const MOUSE_DAMPENING  = 0.12;
+    const SPOTLIGHT_RADIUS = 0.60;
+    const SPOTLIGHT_SOFT   = 0.80;
+    const SPOTLIGHT_OP     = 0.90;
+    const DISTORT          = 2.0;
+    const SHINE_FLIP       = false;
+    const MIRROR           = false;
+    const DPR              = Math.min(window.devicePixelRatio || 1, 2);
+    const MAX_COLORS       = 8;
+
+    function hexToRGB(hex) {
+      const c = hex.replace('#','').padEnd(6,'0');
+      return [parseInt(c.slice(0,2),16)/255, parseInt(c.slice(2,4),16)/255, parseInt(c.slice(4,6),16)/255];
+    }
+
+    function prepStops(stops) {
+      const base = (stops && stops.length ? stops : ['#FF9FFC','#5227FF']).slice(0, MAX_COLORS);
+      if (base.length === 1) base.push(base[0]);
+      while (base.length < MAX_COLORS) base.push(base[base.length-1]);
+      const arr = [];
+      for (let i = 0; i < MAX_COLORS; i++) arr.push(hexToRGB(base[i]));
+      const count = Math.max(2, Math.min(MAX_COLORS, stops ? stops.length : 2));
+      return { arr, count };
+    }
+
+    const { arr: colorArr, count: colorCount } = prepStops(COLORS);
+
+    const canvas = document.getElementById('gradient-blinds');
+    if (!canvas) return;
+
+    const gl = canvas.getContext('webgl', { alpha: true, antialias: true })
+            || canvas.getContext('experimental-webgl', { alpha: true, antialias: true });
+    if (!gl) return;
+
+    // ── Vertex shader (exact from source — position + uv) ──
+    const VERT = `
+      attribute vec2 position;
+      attribute vec2 uv;
+      varying vec2 vUv;
+      void main() { vUv = uv; gl_Position = vec4(position, 0.0, 1.0); }
+    `;
+
+    // ── Fragment shader (exact from source) ──
+    const FRAG = `
+      #ifdef GL_ES
+      precision mediump float;
+      #endif
+      uniform vec3  iResolution;
+      uniform vec2  iMouse;
+      uniform float iTime;
+      uniform float uAngle;
+      uniform float uNoise;
+      uniform float uBlindCount;
+      uniform float uSpotlightRadius;
+      uniform float uSpotlightSoftness;
+      uniform float uSpotlightOpacity;
+      uniform float uMirror;
+      uniform float uDistort;
+      uniform float uShineFlip;
+      uniform vec3  uColor0; uniform vec3 uColor1; uniform vec3 uColor2; uniform vec3 uColor3;
+      uniform vec3  uColor4; uniform vec3 uColor5; uniform vec3 uColor6; uniform vec3 uColor7;
+      uniform int   uColorCount;
+      varying vec2 vUv;
+
+      float rand(vec2 co) { return fract(sin(dot(co, vec2(12.9898,78.233))) * 43758.5453); }
+
+      vec2 rotate2D(vec2 p, float a) {
+        float c = cos(a); float s = sin(a);
+        return mat2(c,-s,s,c) * p;
+      }
+
+      vec3 getGradientColor(float t) {
+        float tt = clamp(t, 0.0, 1.0);
+        int count = uColorCount; if (count < 2) count = 2;
+        float scaled = tt * float(count - 1);
+        float seg = floor(scaled); float f = fract(scaled);
+        if (seg < 1.0)              return mix(uColor0, uColor1, f);
+        if (seg < 2.0 && count > 2) return mix(uColor1, uColor2, f);
+        if (seg < 3.0 && count > 3) return mix(uColor2, uColor3, f);
+        if (seg < 4.0 && count > 4) return mix(uColor3, uColor4, f);
+        if (seg < 5.0 && count > 5) return mix(uColor4, uColor5, f);
+        if (seg < 6.0 && count > 6) return mix(uColor5, uColor6, f);
+        if (seg < 7.0 && count > 7) return mix(uColor6, uColor7, f);
+        if (count > 7) return uColor7; if (count > 6) return uColor6;
+        if (count > 5) return uColor5; if (count > 4) return uColor4;
+        if (count > 3) return uColor3; if (count > 2) return uColor2;
+        return uColor1;
+      }
+
+      void mainImage(out vec4 fragColor, in vec2 fragCoord) {
+        vec2 uv0    = fragCoord.xy / iResolution.xy;
+        float aspect = iResolution.x / iResolution.y;
+        vec2 p = uv0 * 2.0 - 1.0; p.x *= aspect;
+        vec2 pr = rotate2D(p, uAngle); pr.x /= aspect;
+        vec2 uv = pr * 0.5 + 0.5;
+        vec2 uvMod = uv;
+        if (uDistort > 0.0) {
+          float w = 0.01 * uDistort;
+          uvMod.x += sin(uvMod.y * 6.0) * w;
+          uvMod.y += cos(uvMod.x * 6.0) * w;
+        }
+        float t = uvMod.x;
+        if (uMirror > 0.5) { t = 1.0 - abs(1.0 - 2.0 * fract(t)); }
+        vec3 base = getGradientColor(t);
+        vec2  offset = vec2(iMouse.x / iResolution.x, iMouse.y / iResolution.y);
+        float d   = length(uv0 - offset);
+        float dn  = d / max(uSpotlightRadius, 1e-4);
+        float spot = (1.0 - 2.0 * pow(dn, uSpotlightSoftness)) * uSpotlightOpacity;
+        vec3  cir  = vec3(spot);
+        float stripe = fract(uvMod.x * max(uBlindCount, 1.0));
+        if (uShineFlip > 0.5) stripe = 1.0 - stripe;
+        vec3 ran = vec3(stripe);
+        vec3 col = cir + base - ran;
+        col += (rand(gl_FragCoord.xy + iTime) - 0.5) * uNoise;
+        fragColor = vec4(col, 1.0);
+      }
+
+      void main() {
+        vec4 color;
+        mainImage(color, vUv * iResolution.xy);
+        gl_FragColor = color;
+      }
+    `;
+
+    function makeShader(type, src) {
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src); gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS))
+        console.error('GradientBlinds shader error:', gl.getShaderInfoLog(s));
+      return s;
+    }
+    const prog = gl.createProgram();
+    gl.attachShader(prog, makeShader(gl.VERTEX_SHADER,   VERT));
+    gl.attachShader(prog, makeShader(gl.FRAGMENT_SHADER, FRAG));
+    gl.linkProgram(prog);
+    gl.useProgram(prog);
+
+    // ── OGL Triangle geometry: positions [-1,-1],[3,-1],[-1,3] + uvs [0,0],[2,0],[0,2] ──
+    function bindAttr(name, data, size) {
+      const loc = gl.getAttribLocation(prog, name); if (loc < 0) return;
+      const buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+      gl.enableVertexAttribArray(loc);
+      gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0);
+    }
+    bindAttr('position', new Float32Array([-1,-1, 3,-1, -1,3]), 2);
+    bindAttr('uv',       new Float32Array([ 0, 0, 2, 0,  0,2]), 2);
+
+    // ── Uniforms ──
+    const U = {
+      iResolution:        gl.getUniformLocation(prog,'iResolution'),
+      iMouse:             gl.getUniformLocation(prog,'iMouse'),
+      iTime:              gl.getUniformLocation(prog,'iTime'),
+      uAngle:             gl.getUniformLocation(prog,'uAngle'),
+      uNoise:             gl.getUniformLocation(prog,'uNoise'),
+      uBlindCount:        gl.getUniformLocation(prog,'uBlindCount'),
+      uSpotlightRadius:   gl.getUniformLocation(prog,'uSpotlightRadius'),
+      uSpotlightSoftness: gl.getUniformLocation(prog,'uSpotlightSoftness'),
+      uSpotlightOpacity:  gl.getUniformLocation(prog,'uSpotlightOpacity'),
+      uMirror:            gl.getUniformLocation(prog,'uMirror'),
+      uDistort:           gl.getUniformLocation(prog,'uDistort'),
+      uShineFlip:         gl.getUniformLocation(prog,'uShineFlip'),
+      uColorCount:        gl.getUniformLocation(prog,'uColorCount'),
+      uColors:            Array.from({length:MAX_COLORS},(_,i)=>gl.getUniformLocation(prog,`uColor${i}`)),
+    };
+
+    gl.uniform1f(U.uAngle,             (ANGLE * Math.PI) / 180);
+    gl.uniform1f(U.uNoise,             NOISE);
+    gl.uniform1f(U.uBlindCount,        Math.max(1, BLIND_COUNT));
+    gl.uniform1f(U.uSpotlightRadius,   SPOTLIGHT_RADIUS);
+    gl.uniform1f(U.uSpotlightSoftness, SPOTLIGHT_SOFT);
+    gl.uniform1f(U.uSpotlightOpacity,  SPOTLIGHT_OP);
+    gl.uniform1f(U.uMirror,            MIRROR ? 1 : 0);
+    gl.uniform1f(U.uDistort,           DISTORT);
+    gl.uniform1f(U.uShineFlip,         SHINE_FLIP ? 1 : 0);
+    gl.uniform1i(U.uColorCount,        colorCount);
+    colorArr.forEach((c,i) => gl.uniform3fv(U.uColors[i], c));
+
+    // ── Resize + blindMinWidth (exact from source) ──
+    let firstResize = true;
+    const mouseTarget = [0,0], mouse = [0,0];
+
+    function resize() {
+      const rect = canvas.getBoundingClientRect();
+      const w = Math.round(rect.width * DPR), h = Math.round(rect.height * DPR);
+      canvas.width = w; canvas.height = h;
+      gl.viewport(0, 0, w, h);
+      gl.uniform3f(U.iResolution, w, h, 1);
+      if (BLIND_MIN_WIDTH > 0) {
+        const maxByMin = Math.max(1, Math.floor(rect.width / BLIND_MIN_WIDTH));
+        gl.uniform1f(U.uBlindCount, Math.max(1, Math.min(BLIND_COUNT, maxByMin)));
+      }
+      if (firstResize) {
+        firstResize = false;
+        mouse[0] = mouseTarget[0] = w / 2;
+        mouse[1] = mouseTarget[1] = h / 2;
+        gl.uniform2f(U.iMouse, mouse[0], mouse[1]);
+      }
+    }
+    resize();
+    (new ResizeObserver(resize)).observe(canvas);
+    window.addEventListener('resize', resize, { passive: true });
+
+    // ── Mouse: pixel space, Y-FLIPPED (exact from source) ──
+    canvas.addEventListener('pointermove', e => {
+      const rect = canvas.getBoundingClientRect();
+      mouseTarget[0] = (e.clientX - rect.left)               * DPR;
+      mouseTarget[1] = (rect.height - (e.clientY - rect.top)) * DPR;
+    }, { passive: true });
+
+    // ── Render loop: exponential dampening (exact from source) ──
+    // factor = 1 - Math.exp(-dt / tau)  where tau = mouseDampening
+    let lastT = 0;
+    function loop(t) {
+      requestAnimationFrame(loop);
+      const dt = lastT ? (t - lastT) / 1000 : 0; lastT = t;
+      if (MOUSE_DAMPENING > 0) {
+        const factor = Math.min(1, 1 - Math.exp(-dt / Math.max(1e-4, MOUSE_DAMPENING)));
+        mouse[0] += (mouseTarget[0] - mouse[0]) * factor;
+        mouse[1] += (mouseTarget[1] - mouse[1]) * factor;
+      } else { mouse[0] = mouseTarget[0]; mouse[1] = mouseTarget[1]; }
+      gl.uniform1f(U.iTime,  t * 0.001);
+      gl.uniform2f(U.iMouse, mouse[0], mouse[1]);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    requestAnimationFrame(loop);
+  })();
+
+  // ─────────────────────────────────────────────────────
+  //  CardSwap — faithful vanilla port of the React component
+  //  Mirrors useEffect logic: makeSlot, placeNow, swap tl
+  // ─────────────────────────────────────────────────────
+  (function initCardSwap() {
+    const CARD_DISTANCE      = 48;
+    const VERTICAL_DISTANCE  = 44;
+    const DELAY              = 3800;
+    const PAUSE_ON_HOVER     = true;
+    const SKEW_AMOUNT        = 6;
+    const EASING             = 'elastic';
+    const config = EASING === 'elastic'
+      ? { ease:'elastic.out(0.6,0.9)', durDrop:2,   durMove:2,   durReturn:2,   promoteOverlap:0.9,  returnDelay:0.05 }
+      : { ease:'power1.inOut',          durDrop:0.8, durMove:0.8, durReturn:0.8, promoteOverlap:0.45, returnDelay:0.2  };
+
+    function makeSlot(i, distX, distY, total) {
+      return { x: i*distX, y: -i*distY, z: -i*distX*1.5, zIndex: total-i };
+    }
+    function placeNow(el, slot, skew) {
+      gsap.set(el, { x:slot.x, y:slot.y, z:slot.z, xPercent:-50, yPercent:-50, skewY:skew, transformOrigin:'center center', zIndex:slot.zIndex, force3D:true });
+    }
+
+    const container = document.getElementById('card-swap');
+    if (!container) return;
+    const refs  = Array.from(container.querySelectorAll('.swap-card'));
+    const total = refs.length;
+    const order = refs.map((_,i) => i);
+    let tlCurrent = null, intervalId = null, isPaused = false;
+
+    refs.forEach((el,i) => placeNow(el, makeSlot(i, CARD_DISTANCE, VERTICAL_DISTANCE, total), SKEW_AMOUNT));
+
+    function swap() {
+      if (order.length < 2) return;
+      const [front, ...rest] = order;
+      const elFront = refs[front]; if (!elFront) return;
+      const tl = gsap.timeline(); tlCurrent = tl;
+      tl.to(elFront, { y:'+=500', duration:config.durDrop, ease:config.ease });
+      tl.addLabel('promote', `-=${config.durDrop * config.promoteOverlap}`);
+      rest.forEach((idx,i) => {
+        const el = refs[idx]; if (!el) return;
+        const slot = makeSlot(i, CARD_DISTANCE, VERTICAL_DISTANCE, total);
+        tl.set(el, { zIndex:slot.zIndex }, 'promote');
+        tl.to(el, { x:slot.x, y:slot.y, z:slot.z, duration:config.durMove, ease:config.ease }, `promote+=${i*0.15}`);
+      });
+      const backSlot = makeSlot(total-1, CARD_DISTANCE, VERTICAL_DISTANCE, total);
+      tl.addLabel('return', `promote+=${config.durMove * config.returnDelay}`);
+      tl.call(() => gsap.set(elFront, { zIndex:backSlot.zIndex }), undefined, 'return');
+      tl.to(elFront, { x:backSlot.x, y:backSlot.y, z:backSlot.z, duration:config.durReturn, ease:config.ease }, 'return');
+      tl.call(() => { const f = order.shift(); order.push(f); });
+    }
+
+    intervalId = setInterval(swap, DELAY);
+
+    if (PAUSE_ON_HOVER) {
+      container.addEventListener('mouseenter', () => { tlCurrent && tlCurrent.pause(); clearInterval(intervalId); isPaused = true;  });
+      container.addEventListener('mouseleave', () => { tlCurrent && tlCurrent.play();  intervalId = setInterval(swap, DELAY); isPaused = false; });
+    }
+    container.addEventListener('click', () => {
+      if (!isPaused) { clearInterval(intervalId); swap(); intervalId = setInterval(swap, DELAY); }
+    });
+  })();
+
+  // ── Reveal ──
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ── Nav compact ──
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('compact', window.scrollY > 40); }, { passive: true });
+
+  // ── Persona selector ──
+  const PERSONA_MSGS = {
+    founder: "Your engineers are on the critical path. You're not. We'll get you to a demoable prototype in weeks.",
+    pm:      "The feature that's been in your backlog for months? That's what you'll build first.",
+    dev:     "You write code. We'll make sure it has AI in it — and that you can explain why every line is there.",
+    other:   "Tell us what you're building. We'll figure out the path together.",
+  };
+  function selectPersona(btn, type) {
+    document.querySelectorAll('.persona-btn').forEach(b => {
+      b.style.borderColor = 'rgba(255,255,255,0.12)';
+      b.style.color = 'rgba(255,255,255,0.4)';
+    });
+    btn.style.borderColor = '#FF4500';
+    btn.style.color = '#fff';
+    document.getElementById('persona-value').value = type;
+    const msg = document.getElementById('persona-msg');
+    msg.style.opacity = '0';
+    setTimeout(() => {
+      msg.textContent = PERSONA_MSGS[type] || '';
+      msg.style.opacity = '1';
+    }, 150);
+  }
+
+</script>
+
+
+</body>
+</html>
