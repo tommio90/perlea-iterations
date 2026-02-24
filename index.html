@@ -182,7 +182,7 @@
 
 
 <!-- ────────────────────────────────────
-     HERO — GradientBlinds WebGL bg
+     HERO — WebGL bg
 ──────────────────────────────────── -->
 <section class="relative min-h-screen overflow-hidden">
 
@@ -195,7 +195,7 @@
 
   <!-- WebGL canvas: subtle ambient light, no business logic -->
   <canvas id="gradient-blinds" class="absolute inset-0 w-full h-full"
-          style="display:block; mix-blend-mode:lighten; opacity:0.16;"></canvas>
+          style="display:block; mix-blend-mode:lighten; opacity:0.08;"></canvas>
 
   <!-- Bottom fade -->
   <div class="absolute bottom-0 left-0 right-0 h-72 pointer-events-none"
@@ -219,40 +219,39 @@
 
     <p class="reveal d2 text-base font-light leading-relaxed max-w-sm mb-12"
        style="color:rgba(255,255,255,0.72); text-shadow: 0 1px 12px rgba(0,0,0,0.95);">
-      Don't let slow AI integrations kill your Series A. Use our pre-built logistics AI models (demand forecasting, ETA prediction, pricing) and your data to generate a killer demo in <em>weeks</em>. No coding required.
+      Tired of AI projects stuck in the backlog? Use Perlea's pre-built logistics AI models (demand forecasting, ETA prediction, pricing) with your data to ship a Series A-worthy demo in <em>weeks</em>. No coding required.
     </p>
 
     <p class="reveal d2 text-sm font-light leading-relaxed max-w-md mb-10"
        style="color:rgba(255,255,255,0.5); text-shadow: 0 1px 10px rgba(0,0,0,0.9);">
-      Examples include predictive pricing, route optimization, dock scheduling, warehouse automation, and doc intelligence.
+      Examples include predictive pricing, route optimization, dock scheduling, capacity planning, exception detection, and document automation.
     </p>
 
     <div class="reveal d3 mb-10 border border-white/[0.08] p-6" style="background:#0d0d0d; border-radius:2px; max-width:520px;">
       <div class="flex items-center justify-between gap-4 mb-4">
-        <p class="text-xs tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.4);">Instant pricing preview</p>
-        <span class="text-[10px] uppercase" style="color:rgba(255,69,0,0.7);">Live sample output</span>
+        <p class="text-xs tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.4);">Real model output</p>
+        <span class="text-[10px] uppercase" style="color:rgba(255,69,0,0.7);">Before → After</span>
       </div>
-      <div class="grid grid-cols-2 gap-3 mb-4">
-        <input id="lane-origin" class="bg-transparent border border-white/10 text-white placeholder-white/25 px-3 py-2 text-xs focus:outline-none focus:border-white/30 transition-colors" style="border-radius:2px;" placeholder="Origin (e.g., LAX)" value="LAX">
-        <input id="lane-dest" class="bg-transparent border border-white/10 text-white placeholder-white/25 px-3 py-2 text-xs focus:outline-none focus:border-white/30 transition-colors" style="border-radius:2px;" placeholder="Destination (e.g., ORD)" value="ORD">
-        <input id="lane-miles" type="number" class="bg-transparent border border-white/10 text-white placeholder-white/25 px-3 py-2 text-xs focus:outline-none focus:border-white/30 transition-colors" style="border-radius:2px;" placeholder="Miles" value="2015">
-        <input id="lane-weight" type="number" class="bg-transparent border border-white/10 text-white placeholder-white/25 px-3 py-2 text-xs focus:outline-none focus:border-white/30 transition-colors" style="border-radius:2px;" placeholder="Weight (lbs)" value="18000">
-      </div>
-      <div class="flex items-center gap-3 mb-4">
-        <input id="fuel-index" type="number" class="bg-transparent border border-white/10 text-white placeholder-white/25 px-3 py-2 text-xs focus:outline-none focus:border-white/30 transition-colors flex-1" style="border-radius:2px;" placeholder="Fuel index" value="3.85">
-        <button id="run-pricing" class="bg-white text-black text-xs font-medium px-4 py-2 hover:bg-white/90 transition-colors" style="border-radius:2px;">
-          Run pricing
-        </button>
-      </div>
-      <div class="border border-white/[0.08] p-4" style="background:#080808; border-radius:2px;">
-        <p class="text-[10px] uppercase tracking-[0.2em] mb-2" style="color:rgba(255,255,255,0.35);">Sample output</p>
-        <div class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.65);" id="pricing-output">
-          Lane: LAX → ORD · Suggested rate: $2.31/mi · Total: $4,655<br>
-          Band: $2.05 – $2.62 · Win-rate: 58% · ETA risk: Low
+      <div class="grid sm:grid-cols-2 gap-4 mb-4">
+        <div class="border border-white/[0.08] p-4" style="background:#080808; border-radius:2px;">
+          <p class="text-[10px] uppercase tracking-[0.2em] mb-2" style="color:rgba(255,255,255,0.35);">Before: manual sheet</p>
+          <div class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.55);">
+            Lane: LAX → ORD · Last quote: $2.05/mi<br>
+            No ETA risk · No win-rate guidance<br>
+            Static rate table refreshed quarterly
+          </div>
+        </div>
+        <div class="border border-white/[0.08] p-4" style="background:#080808; border-radius:2px;">
+          <p class="text-[10px] uppercase tracking-[0.2em] mb-2" style="color:rgba(255,255,255,0.35);">After: model output</p>
+          <div class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.65);">
+            Lane: LAX → ORD · Suggested: $2.31/mi · Band: $2.05–$2.62<br>
+            Win-rate: 58% · ETA risk: Low · Confidence: 0.84<br>
+            Recommended carrier: Atlas Freight (score 92)
+          </div>
         </div>
       </div>
-      <p class="mt-3 text-[11px] leading-relaxed" style="color:rgba(255,255,255,0.4);">
-        This is a demo dataset output. We replace it with your lanes and shipper context in week 1.
+      <p class="text-[11px] leading-relaxed" style="color:rgba(255,255,255,0.4);">
+        Demo dataset output. We replace it with your lanes, rates, and constraints in week 1.
       </p>
     </div>
 
@@ -263,7 +262,7 @@
       </a>
       <a href="#who" class="text-sm hover:text-white transition-colors tracking-wide"
          style="color:rgba(255,255,255,0.60);">
-        How it works ↓
+        See How it Works
       </a>
     </div>
 
@@ -442,6 +441,8 @@
           <li>ETA prediction (LightGBM) using traffic, weather, and dwell-time signals.</li>
           <li>Price elasticity + win-rate scoring (Bayesian regression).</li>
           <li>Routing optimizer (OR-Tools) with capacity, time windows, and fuel constraints.</li>
+          <li>Dock scheduling + yard congestion optimizer (mixed-integer programming).</li>
+          <li>Exception detection for late loads and missed appointments (anomaly detection).</li>
         </ul>
       </div>
       <div class="reveal d2 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
@@ -747,6 +748,20 @@
       <p class="reveal d2 text-sm max-w-md leading-relaxed" style="color:rgba(255,255,255,0.38);">
         We handle data and model wiring. You focus on the business story and the client-facing demo.
       </p>
+      <div class="reveal d3 mt-6 grid gap-4">
+        <div class="border border-white/[0.07] p-4" style="background:#0d0d0d; border-radius:2px;">
+          <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Data you provide</p>
+          <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">
+            Shipment history, lane master, rate tables, service-level targets, and operational constraints. Optional: GPS/ELD pings, dock events, and exception logs.
+          </p>
+        </div>
+        <div class="border border-white/[0.07] p-4" style="background:#0d0d0d; border-radius:2px;">
+          <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">How no-code works</p>
+          <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">
+            Upload a CSV, connect your TMS/WMS via API, or paste a Google Sheet. We map fields, validate, and generate the demo UI and outputs.
+          </p>
+        </div>
+      </div>
     </div>
 
     <div class="grid gap-4">
@@ -767,6 +782,68 @@
         <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">
           Review the walkthrough, customize branding, and present a ready-to-share demo in weeks.
         </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     SEE IT IN ACTION — interface + output
+──────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
+
+<section class="max-w-6xl mx-auto px-8 py-28">
+  <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
+    <div>
+      <p class="reveal text-[11px] tracking-[0.25em] uppercase mb-5" style="color:rgba(255,255,255,0.25);">See it in action</p>
+      <h2 class="reveal d1 serif font-bold text-white mb-4 leading-[1.1]" style="font-size: clamp(34px, 4.2vw, 56px);">
+        Screens that show<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">exactly what you get.</em>
+      </h2>
+      <p class="reveal d2 text-sm max-w-md leading-relaxed" style="color:rgba(255,255,255,0.38);">
+        A quick tour of the no-code interface: data mapping, model run, and the output dashboard your stakeholders actually review.
+      </p>
+    </div>
+
+    <div class="grid gap-4">
+      <div class="reveal d1 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px; overflow:hidden;">
+        <div style="height:160px; background:linear-gradient(135deg, rgba(255,69,0,0.15) 0%, rgba(5,5,5,0.9) 55%), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size:cover, 36px 36px;">
+          <div style="padding:16px 18px;">
+            <div class="text-[10px] uppercase tracking-[0.2em]" style="color:rgba(255,255,255,0.35);">Data mapping</div>
+            <div style="margin-top:10px; font-family:monospace; font-size:11px; color:rgba(255,255,255,0.6); line-height:1.6;">
+              shipments.csv → lane_id, origin, dest, miles<br>
+              rates.csv → carrier, rate_per_mile, contract_type<br>
+              constraints → service_level, max_delay, dwell_cap
+            </div>
+          </div>
+        </div>
+        <div class="px-4 py-3 text-xs" style="color:rgba(255,255,255,0.5);">Auto-mapped fields with validation and gap checks.</div>
+      </div>
+      <div class="reveal d2 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px; overflow:hidden;">
+        <div style="height:160px; background:linear-gradient(135deg, rgba(26,58,107,0.22) 0%, rgba(5,5,5,0.92) 60%);">
+          <div style="padding:16px 18px;">
+            <div class="text-[10px] uppercase tracking-[0.2em]" style="color:rgba(255,255,255,0.35);">Model run</div>
+            <div style="margin-top:10px; font-family:monospace; font-size:11px; color:rgba(255,255,255,0.6); line-height:1.6;">
+              pricing_v2 → 124 lanes · 6.2k rows<br>
+              eta_risk → 97% coverage · 0.86 AUC<br>
+              dock_slots → 12 facilities · 4.3k appts
+            </div>
+          </div>
+        </div>
+        <div class="px-4 py-3 text-xs" style="color:rgba(255,255,255,0.5);">One-click run with audit-ready metrics.</div>
+      </div>
+      <div class="reveal d3 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px; overflow:hidden;">
+        <div style="height:160px; background:linear-gradient(135deg, rgba(255,69,0,0.12) 0%, rgba(5,5,5,0.95) 65%);">
+          <div style="padding:16px 18px;">
+            <div class="text-[10px] uppercase tracking-[0.2em]" style="color:rgba(255,255,255,0.35);">Output dashboard</div>
+            <div style="margin-top:10px; font-family:monospace; font-size:11px; color:rgba(255,255,255,0.6); line-height:1.6;">
+              Lane: ATL → ORD · $2.18/mi · Win-rate 61%<br>
+              ETA risk: Medium · Delay cost: $940<br>
+              Recommended action: re-route via STL
+            </div>
+          </div>
+        </div>
+        <div class="px-4 py-3 text-xs" style="color:rgba(255,255,255,0.5);">Stakeholder-ready outputs with clear next steps.</div>
       </div>
     </div>
   </div>
@@ -1920,47 +1997,6 @@ const { data } = await client.pricing.getLaneBands({
       msg.style.opacity = '1';
     }, 150);
   }
-
-  // ── Pricing preview ──
-  (function initPricingPreview() {
-    const output = document.getElementById('pricing-output');
-    const btn = document.getElementById('run-pricing');
-    const originEl = document.getElementById('lane-origin');
-    const destEl = document.getElementById('lane-dest');
-    const milesEl = document.getElementById('lane-miles');
-    const weightEl = document.getElementById('lane-weight');
-    const fuelEl = document.getElementById('fuel-index');
-    if (!output || !btn || !originEl || !destEl || !milesEl || !weightEl || !fuelEl) return;
-
-    function formatMoney(value) {
-      return value.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-    }
-
-    function calc() {
-      const origin = (originEl.value || 'LAX').toUpperCase();
-      const dest = (destEl.value || 'ORD').toUpperCase();
-      const miles = Math.max(100, Number(milesEl.value) || 0);
-      const weight = Math.max(1000, Number(weightEl.value) || 0);
-      const fuel = Math.max(1, Number(fuelEl.value) || 3.6);
-
-      const weightAdj = Math.min(0.35, (weight / 20000) * 0.22);
-      const fuelAdj = (fuel - 3.5) * 0.16;
-      const distanceAdj = miles * 0.00022;
-      const rate = Math.max(1.7, 1.95 + weightAdj + fuelAdj + distanceAdj);
-      const low = rate * 0.89;
-      const high = rate * 1.13;
-      const total = rate * miles;
-      const winRate = Math.round(52 + Math.max(-10, Math.min(12, (2.35 - rate) * 10)));
-      const etaRisk = miles > 1600 ? 'Medium' : 'Low';
-
-      output.innerHTML = `Lane: ${origin} → ${dest} · Suggested rate: $${rate.toFixed(2)}/mi · Total: $${formatMoney(total)}<br>` +
-        `Band: $${low.toFixed(2)} – $${high.toFixed(2)} · Win-rate: ${winRate}% · ETA risk: ${etaRisk}`;
-    }
-
-    btn.addEventListener('click', calc);
-    [originEl, destEl, milesEl, weightEl, fuelEl].forEach(el => el.addEventListener('change', calc));
-    calc();
-  })();
 
 </script>
 
