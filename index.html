@@ -191,7 +191,7 @@
 
   <!-- Logistics visual layer -->
   <div class="absolute inset-0"
-       style="background-image:linear-gradient(120deg, rgba(5,5,5,0.75) 0%, rgba(5,5,5,0.35) 60%), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1800&auto=format&fit=crop'); background-size:cover, 64% 64%; background-position:center, 72% 38%; background-repeat:no-repeat; filter:grayscale(0.2) contrast(1.02) saturate(1.02); opacity:0.24;"></div>
+       style="background-image:linear-gradient(120deg, rgba(5,5,5,0.85) 0%, rgba(5,5,5,0.45) 60%), radial-gradient(circle at 70% 35%, rgba(255,69,0,0.10) 0%, rgba(5,5,5,0.2) 55%, transparent 70%); background-size:cover; background-position:center; background-repeat:no-repeat; opacity:0.24;"></div>
 
   <!-- WebGL canvas: mix-blend-mode lighten over the dark base (matches App.tsx) -->
   <canvas id="gradient-blinds" class="absolute inset-0 w-full h-full"
@@ -214,18 +214,17 @@
 
     <h1 class="reveal d1 serif font-bold leading-[1.05] text-white mb-10"
         style="font-size: clamp(52px, 6.5vw, 96px); text-shadow: 0 2px 32px rgba(0,0,0,0.9), 0 1px 8px rgba(0,0,0,0.8);">
-      Ship AI-Powered Logistics Features in Weeks.<br>
-      <em class="font-normal" style="color:rgba(255,255,255,0.75);">(Yes, Really.)</em>
+      Ship AI-Powered Logistics Features in Weeks.
     </h1>
 
     <p class="reveal d2 text-base font-light leading-relaxed max-w-sm mb-12"
        style="color:rgba(255,255,255,0.72); text-shadow: 0 1px 12px rgba(0,0,0,0.95);">
-      Tired of AI features stuck in the backlog? Build a working demo of predictive freight pricing, route optimization, or warehouse automation in weeks – even without a dedicated AI team. Use our pre-built AI models and logistics data to show stakeholders a tangible solution, not just a PowerPoint.
+      Tired of AI features stuck in the backlog? Build a working demo of predictive freight pricing, route optimization, or warehouse automation in weeks. Integrate our pre-built AI models and logistics data directly into your existing React/TS stack to show stakeholders a tangible solution.
     </p>
 
     <p class="reveal d2 text-sm font-light leading-relaxed max-w-md mb-10"
        style="color:rgba(255,255,255,0.5); text-shadow: 0 1px 10px rgba(0,0,0,0.9);">
-      Purpose-built for logistics teams shipping pricing, routing, ETA risk, and warehouse ops features — not generic AI demos.
+      Logistics AI means pricing bands, ETA risk, route optimization, dock scheduling, and warehouse slotting — not generic demos.
     </p>
 
     <div class="reveal d3 flex items-center gap-8 mb-8">
@@ -238,6 +237,10 @@
         How it works ↓
       </a>
     </div>
+
+    <p class="reveal d3 text-xs uppercase tracking-[0.2em]" style="color:rgba(255,255,255,0.35);">
+      Ballpark pricing: $3k–$8k/mo for the demo track.
+    </p>
 
     <div class="reveal d4 flex items-center gap-3 text-xs tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.35);">
       <span style="color:rgba(255,69,0,0.65);">Live logistics heatmap</span>
@@ -695,7 +698,14 @@
     <div class="grid gap-4">
       <div class="reveal d1 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
         <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">React component</p>
-        <pre class="text-xs leading-relaxed overflow-x-auto" style="color:rgba(255,255,255,0.55);"><code>export function RateBand({ lane, median, p10, p90 }) {
+        <pre class="text-xs leading-relaxed overflow-x-auto" style="color:rgba(255,255,255,0.55);"><code>type RateBandProps = {
+  lane: string;
+  median: number;
+  p10: number;
+  p90: number;
+};
+
+export function RateBand({ lane, median, p10, p90 }: RateBandProps) {
   return (
     &lt;Card&gt;
       &lt;h3&gt;{lane}&lt;/h3&gt;
@@ -728,6 +738,42 @@ def forecast_price(payload: ForecastRequest):
           <li>DelayPulse widget for at-a-glance ETA risk.</li>
         </ul>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     REACT/TS INTEGRATION — quickstart
+──────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
+
+<section class="max-w-6xl mx-auto px-8 py-24">
+  <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
+    <div>
+      <p class="reveal text-[11px] tracking-[0.25em] uppercase mb-5" style="color:rgba(255,255,255,0.25);">React/TS integration</p>
+      <h2 class="reveal d1 serif font-bold text-white mb-4 leading-[1.1]" style="font-size: clamp(30px, 3.6vw, 48px);">
+        Plug into your app,<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">no rewrite required.</em>
+      </h2>
+      <p class="reveal d2 text-sm max-w-md leading-relaxed" style="color:rgba(255,255,255,0.38);">
+        Drop in a typed client and wire it to existing views. The demo track ships a React + TypeScript starter you can clone.
+      </p>
+      <div class="reveal d3 mt-6 flex flex-wrap gap-4 text-sm">
+        <a href="https://github.com/perlea-ai/logistics-starter" class="text-white/70 hover:text-white transition-colors" target="_blank" rel="noopener">React/TS Quickstart →</a>
+      </div>
+    </div>
+
+    <div class="reveal d2 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+      <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Typed client usage</p>
+      <pre class="text-xs leading-relaxed overflow-x-auto" style="color:rgba(255,255,255,0.55);"><code>import { createClient } from "./perleaClient";
+
+const client = createClient({ apiKey, baseUrl });
+
+const { data } = await client.pricing.getLaneBands({
+  origin: "LAX",
+  destination: "ORD",
+  equipment: "van",
+});</code></pre>
     </div>
   </div>
 </section>
