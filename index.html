@@ -191,7 +191,7 @@
 
   <!-- Logistics visual layer -->
   <div class="absolute inset-0"
-       style="background-image:linear-gradient(120deg, rgba(5,5,5,0.85) 0%, rgba(5,5,5,0.45) 60%), radial-gradient(circle at 70% 35%, rgba(255,69,0,0.10) 0%, rgba(5,5,5,0.2) 55%, transparent 70%); background-size:cover; background-position:center; background-repeat:no-repeat; opacity:0.24;"></div>
+       style="background-image:linear-gradient(120deg, rgba(5,5,5,0.82) 0%, rgba(5,5,5,0.35) 60%), radial-gradient(circle at 70% 35%, rgba(255,69,0,0.16) 0%, rgba(5,5,5,0.2) 55%, transparent 70%), linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px); background-size:cover, cover, 48px 48px, 48px 48px; background-position:center; background-repeat:no-repeat; opacity:0.42;"></div>
 
   <!-- WebGL canvas: mix-blend-mode lighten over the dark base (matches App.tsx) -->
   <canvas id="gradient-blinds" class="absolute inset-0 w-full h-full"
@@ -219,7 +219,7 @@
 
     <p class="reveal d2 text-base font-light leading-relaxed max-w-sm mb-12"
        style="color:rgba(255,255,255,0.72); text-shadow: 0 1px 12px rgba(0,0,0,0.95);">
-      Stuck features won't raise capital. Use our pre-built AI models (like demand forecasting and ETA prediction) and logistics data to demo predictive pricing, route optimization, or warehouse automation within <em>weeks</em>. Get a working demo to investors — even if you can't code.
+      Slow AI integrations won't raise capital. Use our pre-built AI models (like demand forecasting and ETA prediction) and logistics data to demo predictive pricing, route optimization, or warehouse automation within <em>weeks</em>. Get a working demo to investors with our pre-built AI models and a developer-friendly API.
     </p>
 
     <p class="reveal d2 text-sm font-light leading-relaxed max-w-md mb-10"
@@ -980,6 +980,50 @@ const { data } = await client.pricing.getLaneBands({
   destination: "ORD",
   equipment: "van",
 });</code></pre>
+    </div>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     TECH STACK — explicit technologies
+──────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
+
+<section class="max-w-6xl mx-auto px-8 py-24">
+  <div class="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-start">
+    <div>
+      <p class="reveal text-[11px] tracking-[0.25em] uppercase mb-5" style="color:rgba(255,255,255,0.25);">Tech stack</p>
+      <h2 class="reveal d1 serif font-bold text-white mb-4 leading-[1.1]" style="font-size: clamp(30px, 3.6vw, 48px);">
+        Built for developers,<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">not no-code.</em>
+      </h2>
+      <p class="reveal d2 text-sm max-w-md leading-relaxed" style="color:rgba(255,255,255,0.38);">
+        Pre-built models run in a Python ML stack with TensorFlow/PyTorch where deep learning helps, plus classical models like XGBoost and LightGBM. APIs are FastAPI-based, and the UI ships with a React + TypeScript kit that plugs into existing apps.
+      </p>
+      <div class="reveal d3 mt-6 grid sm:grid-cols-2 gap-4 text-sm">
+        <div class="p-4 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+          <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Model layer</p>
+          <p style="color:rgba(255,255,255,0.6);">Python, TensorFlow/PyTorch, XGBoost, LightGBM, OR-Tools.</p>
+        </div>
+        <div class="p-4 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+          <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">App layer</p>
+          <p style="color:rgba(255,255,255,0.6);">FastAPI + REST, React + TypeScript UI blocks, Postgres + Redis.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal d2 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+      <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">API example</p>
+      <pre class="text-xs leading-relaxed overflow-x-auto" style="color:rgba(255,255,255,0.55);"><code>curl -X POST "$PERLEA_API/v1/eta/predict" \
+  -H "Authorization: Bearer $API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "lane_id": "LAX-ORD",
+    "pickup_time": "2025-05-15T09:00:00Z"
+  }'</code></pre>
+      <p class="mt-3 text-xs leading-relaxed" style="color:rgba(255,255,255,0.45);">
+        Returns ETA bands, risk score, and top features for the lane.
+      </p>
     </div>
   </div>
 </section>
