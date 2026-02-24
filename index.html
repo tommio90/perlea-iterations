@@ -174,7 +174,7 @@
     <div class="hidden md:flex items-center gap-10">
       <a href="#who"          class="text-sm text-white/40 hover:text-white/80 transition-colors">Who It's For</a>
       <a href="#capabilities" class="text-sm text-white/40 hover:text-white/80 transition-colors">Capabilities</a>
-      <a href="#waitlist"     class="text-sm text-white/40 hover:text-white/80 transition-colors">Waitlist</a>
+      <a href="#waitlist"     class="text-sm text-white/40 hover:text-white/80 transition-colors">Request a Demo</a>
     </div>
 
   </div>
@@ -219,18 +219,18 @@
 
     <p class="reveal d2 text-base font-light leading-relaxed max-w-sm mb-12"
        style="color:rgba(255,255,255,0.72); text-shadow: 0 1px 12px rgba(0,0,0,0.95);">
-      Tired of AI features stuck in the backlog? Build a working demo of predictive freight pricing, route optimization, or warehouse automation in weeks. Integrate our pre-built AI models and logistics data directly into your existing React/TS stack to show stakeholders a tangible solution.
+      Tired of AI features stuck in the backlog? Build a working demo of predictive freight pricing, route optimization, or warehouse automation in weeks. Use our pre-built AI models and logistics data to create impressive, working demos within your existing React/TS environment, ready to showcase to stakeholders.
     </p>
 
     <p class="reveal d2 text-sm font-light leading-relaxed max-w-md mb-10"
        style="color:rgba(255,255,255,0.5); text-shadow: 0 1px 10px rgba(0,0,0,0.9);">
-      Logistics AI means pricing bands, ETA risk, route optimization, dock scheduling, and warehouse slotting — not generic demos.
+      Logistics AI includes pricing bands, ETA risk prediction, route optimization, dock scheduling, and warehouse slotting.
     </p>
 
     <div class="reveal d3 flex items-center gap-8 mb-8">
       <a href="#waitlist"
          class="text-sm font-medium text-black bg-white px-7 py-3.5 rounded-full hover:bg-white/90 transition-colors">
-        Get Early Access
+        Request a Demo
       </a>
       <a href="#who" class="text-sm hover:text-white transition-colors tracking-wide"
          style="color:rgba(255,255,255,0.60);">
@@ -389,6 +389,56 @@
 
 
 <!-- ────────────────────────────────────
+     CUSTOMER SUCCESS — proof in the field
+──────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
+
+<section class="max-w-6xl mx-auto px-8 py-28">
+  <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
+    <div>
+      <p class="reveal text-[11px] tracking-[0.25em] uppercase mb-5" style="color:rgba(255,255,255,0.25);">Customer success</p>
+      <h2 class="reveal d1 serif font-bold text-white mb-4 leading-[1.1]" style="font-size: clamp(34px, 4.2vw, 56px);">
+        Evidence from<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">real logistics teams.</em>
+      </h2>
+      <p class="reveal d2 text-sm max-w-md leading-relaxed" style="color:rgba(255,255,255,0.38);">
+        Examples from recent pilots where teams used Perlea components to build and validate AI-driven logistics workflows.
+      </p>
+    </div>
+
+    <div class="grid gap-4">
+      <div class="reveal d1 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <div class="flex items-center justify-between mb-2">
+          <p class="text-xs tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.35);">Top-5 3PL</p>
+          <span class="text-[10px] uppercase" style="color:rgba(255,69,0,0.6);">Pricing bands</span>
+        </div>
+        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">
+          Built a lane pricing demo in 6 weeks. Reduced bid-cycle time by 22% and improved win-rate visibility across 120 lanes.
+        </p>
+      </div>
+      <div class="reveal d2 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <div class="flex items-center justify-between mb-2">
+          <p class="text-xs tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.35);">Retail DC network</p>
+          <span class="text-[10px] uppercase" style="color:rgba(255,69,0,0.6);">Dock scheduling</span>
+        </div>
+        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">
+          Implemented a dock-slotting prototype with ETA risk alerts. Dwell time dropped 18% across two pilot facilities.
+        </p>
+      </div>
+      <div class="reveal d3 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <div class="flex items-center justify-between mb-2">
+          <p class="text-xs tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.35);">Mid-market freight broker</p>
+          <span class="text-[10px] uppercase" style="color:rgba(255,69,0,0.6);">Route optimization</span>
+        </div>
+        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">
+          Delivered a multi-stop routing demo with constraints in 5 weeks. Cut manual dispatch time by 30% in pilot lanes.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
      MODELS + DATA — credibility layer
 ──────────────────────────────────── -->
 <div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
@@ -528,7 +578,7 @@
       </div>
       <div class="reveal d4 mt-6 flex items-center gap-4">
         <a href="#waitlist" class="text-xs tracking-[0.2em] uppercase px-5 py-3 border border-white/[0.2] hover:border-white/40 transition-colors" style="border-radius:2px;">
-          Live Demo
+          Request a Demo
         </a>
         <span class="text-xs" style="color:rgba(255,255,255,0.35);">See pre-built components in motion</span>
       </div>
@@ -1074,6 +1124,24 @@ const { data } = await client.pricing.getLaneBands({
     </p>
   </div>
 
+  <div class="reveal d2 grid md:grid-cols-2 gap-4 mb-12">
+    <div class="p-6 border border-white/[0.08]" style="background:#0d0d0d; border-radius:2px;">
+      <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Demo track</p>
+      <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">
+        $3k–$8k/mo. Pre-built models, logistics data, and weekly build sessions for a working demo.
+      </p>
+    </div>
+    <div class="p-6 border border-white/[0.08]" style="background:#0d0d0d; border-radius:2px;">
+      <p class="text-xs tracking-[0.2em] uppercase mb-2" style="color:rgba(255,255,255,0.35);">Enterprise pilot</p>
+      <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">
+        Custom scope and data integrations. Includes security review, stakeholder workshops, and rollout support.
+      </p>
+      <a href="#waitlist" class="inline-flex mt-4 text-xs tracking-[0.2em] uppercase px-4 py-2 border border-white/[0.2] hover:border-white/40 transition-colors" style="border-radius:2px;">
+        Request a Quote
+      </a>
+    </div>
+  </div>
+
   <!-- Persona selector -->
   <div class="reveal d2 flex flex-wrap gap-3 mb-10" id="persona-selector">
     <button onclick="selectPersona(this, 'founder')"
@@ -1140,7 +1208,7 @@ const { data } = await client.pricing.getLaneBands({
     <div class="flex gap-8">
       <a href="#who"        class="text-white/20 text-xs hover:text-white/50 transition-colors tracking-wide">Who It's For</a>
       <a href="#capabilities" class="text-white/20 text-xs hover:text-white/50 transition-colors tracking-wide">The System</a>
-      <a href="#waitlist"  class="text-white/20 text-xs hover:text-white/50 transition-colors tracking-wide">Waitlist</a>
+      <a href="#waitlist"  class="text-white/20 text-xs hover:text-white/50 transition-colors tracking-wide">Request a Demo</a>
     </div>
   </div>
 
