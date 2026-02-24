@@ -195,7 +195,7 @@
 
   <!-- WebGL canvas: mix-blend-mode lighten over the dark base (matches App.tsx) -->
   <canvas id="gradient-blinds" class="absolute inset-0 w-full h-full"
-          style="display:block; mix-blend-mode:lighten; opacity:0.28;"></canvas>
+          style="display:block; mix-blend-mode:lighten; opacity:0.2;"></canvas>
 
   <!-- Bottom fade -->
   <div class="absolute bottom-0 left-0 right-0 h-72 pointer-events-none"
@@ -214,12 +214,12 @@
 
     <h1 class="reveal d1 serif font-bold leading-[1.05] text-white mb-10"
         style="font-size: clamp(52px, 6.5vw, 96px); text-shadow: 0 2px 32px rgba(0,0,0,0.9), 0 1px 8px rgba(0,0,0,0.8);">
-      Demo Predictive Pricing or Route Optimization for Your Series A — in Weeks.
+      Finally Demo AI: Predictive Pricing and Route Optimization in Weeks.
     </h1>
 
     <p class="reveal d2 text-base font-light leading-relaxed max-w-sm mb-12"
        style="color:rgba(255,255,255,0.72); text-shadow: 0 1px 12px rgba(0,0,0,0.95);">
-      Stuck features won't raise capital. Use our pre-built AI models and logistics data to demo predictive pricing, route optimization, or warehouse automation within <em>weeks</em>. Get a working demo to investors — even if you can't code.
+      Stuck features won't raise capital. Use our pre-built AI models (like demand forecasting and ETA prediction) and logistics data to demo predictive pricing, route optimization, or warehouse automation within <em>weeks</em>. Get a working demo to investors — even if you can't code.
     </p>
 
     <p class="reveal d2 text-sm font-light leading-relaxed max-w-md mb-10"
@@ -389,6 +389,47 @@
 
 
 <!-- ────────────────────────────────────
+     MODELS + DATA — specifics
+──────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
+
+<section class="max-w-6xl mx-auto px-8 py-28">
+  <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
+    <div>
+      <p class="reveal text-[11px] tracking-[0.25em] uppercase mb-5" style="color:rgba(255,255,255,0.25);">What's included</p>
+      <h2 class="reveal d1 serif font-bold text-white mb-4 leading-[1.1]" style="font-size: clamp(34px, 4.2vw, 56px);">
+        Specific models,<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">specific data.</em>
+      </h2>
+      <p class="reveal d2 text-sm max-w-md leading-relaxed" style="color:rgba(255,255,255,0.38);">
+        The demo track ships with model-ready datasets and pre-built pipelines so you can show real outputs instead of mockups.
+      </p>
+    </div>
+
+    <div class="grid gap-4">
+      <div class="reveal d1 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-xs tracking-[0.2em] uppercase mb-3" style="color:rgba(255,255,255,0.35);">AI model pack</p>
+        <ul class="text-sm leading-relaxed space-y-3" style="color:rgba(255,255,255,0.6);">
+          <li>Demand forecasting (Prophet + XGBoost) with seasonal bands by lane.</li>
+          <li>ETA prediction (LightGBM) using traffic, weather, and dwell-time signals.</li>
+          <li>Price elasticity + win-rate scoring (Bayesian regression).</li>
+          <li>Routing optimizer (OR-Tools) with capacity, time windows, and fuel constraints.</li>
+        </ul>
+      </div>
+      <div class="reveal d2 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-xs tracking-[0.2em] uppercase mb-3" style="color:rgba(255,255,255,0.35);">Logistics data pack</p>
+        <ul class="text-sm leading-relaxed space-y-3" style="color:rgba(255,255,255,0.6);">
+          <li>Lane history with origin/destination, equipment, and tender volumes.</li>
+          <li>Spot + contract rate curves with fuel index overlays.</li>
+          <li>ELD-style GPS pings, traffic feeds, and weather snapshots.</li>
+          <li>Dock appointment logs, WMS scan events, and carrier SLA history.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
      CUSTOMER SUCCESS — proof in the field
 ──────────────────────────────────── -->
 <div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
@@ -406,6 +447,15 @@
     </div>
 
     <div class="grid gap-4">
+      <div class="reveal d1 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <div class="flex items-center justify-between mb-2">
+          <p class="text-xs tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.35);">Series B TMS platform</p>
+          <span class="text-[10px] uppercase" style="color:rgba(255,69,0,0.6);">ETA demo</span>
+        </div>
+        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.6);">
+          Shipped an ETA prediction demo in 4 weeks using ELD pings + weather feeds. Won budget approval after a single stakeholder review.
+        </p>
+      </div>
       <div class="reveal d1 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
         <div class="flex items-center justify-between mb-2">
           <p class="text-xs tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.35);">Top-5 3PL</p>
