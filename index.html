@@ -189,13 +189,13 @@
   <!-- Dark base layer the canvas lightens over (matches App.tsx bg-[#1A1A1B]) -->
   <div class="absolute inset-0" style="background:#0d0d0d;"></div>
 
-  <!-- Logistics visual layer -->
+  <!-- Lightweight CSS visual layer (static, no data dependency) -->
   <div class="absolute inset-0"
-       style="background-image:linear-gradient(120deg, rgba(5,5,5,0.86) 0%, rgba(5,5,5,0.45) 60%), radial-gradient(circle at 70% 35%, rgba(255,69,0,0.14) 0%, rgba(5,5,5,0.2) 55%, transparent 70%), linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(135deg, rgba(255,69,0,0.08) 0%, rgba(255,69,0,0) 45%); background-size:cover, cover, 72px 72px, 72px 72px, cover; background-position:center; background-repeat:no-repeat; opacity:0.26;"></div>
+       style="background-image:linear-gradient(120deg, rgba(5,5,5,0.86) 0%, rgba(5,5,5,0.45) 60%), radial-gradient(circle at 70% 35%, rgba(255,69,0,0.14) 0%, rgba(5,5,5,0.2) 55%, transparent 70%), linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(135deg, rgba(255,69,0,0.08) 0%, rgba(255,69,0,0) 45%); background-size:cover, cover, 72px 72px, 72px 72px, cover; background-position:center; background-repeat:no-repeat; opacity:0.18;"></div>
 
-  <!-- WebGL canvas: mix-blend-mode lighten over the dark base (matches App.tsx) -->
+  <!-- WebGL canvas: subtle ambient light, no business logic -->
   <canvas id="gradient-blinds" class="absolute inset-0 w-full h-full"
-          style="display:block; mix-blend-mode:lighten; opacity:0.2;"></canvas>
+          style="display:block; mix-blend-mode:lighten; opacity:0.16;"></canvas>
 
   <!-- Bottom fade -->
   <div class="absolute bottom-0 left-0 right-0 h-72 pointer-events-none"
@@ -214,18 +214,47 @@
 
     <h1 class="reveal d1 serif font-bold leading-[1.05] text-white mb-10"
         style="font-size: clamp(52px, 6.5vw, 96px); text-shadow: 0 2px 32px rgba(0,0,0,0.9), 0 1px 8px rgba(0,0,0,0.8);">
-      Finally Demo AI: Predictive Pricing and Route Optimization in Weeks.
+      Series A Demo in 8 Weeks: Predictive Pricing &amp; Route Optimization, No Code Required.
     </h1>
 
     <p class="reveal d2 text-base font-light leading-relaxed max-w-sm mb-12"
        style="color:rgba(255,255,255,0.72); text-shadow: 0 1px 12px rgba(0,0,0,0.95);">
-      Slow AI integrations won't raise capital. Use our pre-built AI models (like demand forecasting and ETA prediction) and logistics data to demo predictive pricing, route optimization, or warehouse automation within <em>weeks</em>. Impress CTOs and investors with a data-backed AI demo built in weeks. No coding required.
+      Don't let slow AI integrations kill your Series A. Use our pre-built logistics AI models (demand forecasting, ETA prediction, pricing) and your data to generate a killer demo in <em>weeks</em>. No coding required.
     </p>
 
     <p class="reveal d2 text-sm font-light leading-relaxed max-w-md mb-10"
        style="color:rgba(255,255,255,0.5); text-shadow: 0 1px 10px rgba(0,0,0,0.9);">
       Examples include predictive pricing, route optimization, dock scheduling, warehouse automation, and doc intelligence.
     </p>
+
+    <div class="reveal d3 mb-10 border border-white/[0.08] p-6" style="background:#0d0d0d; border-radius:2px; max-width:520px;">
+      <div class="flex items-center justify-between gap-4 mb-4">
+        <p class="text-xs tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.4);">Instant pricing preview</p>
+        <span class="text-[10px] uppercase" style="color:rgba(255,69,0,0.7);">Live sample output</span>
+      </div>
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <input id="lane-origin" class="bg-transparent border border-white/10 text-white placeholder-white/25 px-3 py-2 text-xs focus:outline-none focus:border-white/30 transition-colors" style="border-radius:2px;" placeholder="Origin (e.g., LAX)" value="LAX">
+        <input id="lane-dest" class="bg-transparent border border-white/10 text-white placeholder-white/25 px-3 py-2 text-xs focus:outline-none focus:border-white/30 transition-colors" style="border-radius:2px;" placeholder="Destination (e.g., ORD)" value="ORD">
+        <input id="lane-miles" type="number" class="bg-transparent border border-white/10 text-white placeholder-white/25 px-3 py-2 text-xs focus:outline-none focus:border-white/30 transition-colors" style="border-radius:2px;" placeholder="Miles" value="2015">
+        <input id="lane-weight" type="number" class="bg-transparent border border-white/10 text-white placeholder-white/25 px-3 py-2 text-xs focus:outline-none focus:border-white/30 transition-colors" style="border-radius:2px;" placeholder="Weight (lbs)" value="18000">
+      </div>
+      <div class="flex items-center gap-3 mb-4">
+        <input id="fuel-index" type="number" class="bg-transparent border border-white/10 text-white placeholder-white/25 px-3 py-2 text-xs focus:outline-none focus:border-white/30 transition-colors flex-1" style="border-radius:2px;" placeholder="Fuel index" value="3.85">
+        <button id="run-pricing" class="bg-white text-black text-xs font-medium px-4 py-2 hover:bg-white/90 transition-colors" style="border-radius:2px;">
+          Run pricing
+        </button>
+      </div>
+      <div class="border border-white/[0.08] p-4" style="background:#080808; border-radius:2px;">
+        <p class="text-[10px] uppercase tracking-[0.2em] mb-2" style="color:rgba(255,255,255,0.35);">Sample output</p>
+        <div class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.65);" id="pricing-output">
+          Lane: LAX → ORD · Suggested rate: $2.31/mi · Total: $4,655<br>
+          Band: $2.05 – $2.62 · Win-rate: 58% · ETA risk: Low
+        </div>
+      </div>
+      <p class="mt-3 text-[11px] leading-relaxed" style="color:rgba(255,255,255,0.4);">
+        This is a demo dataset output. We replace it with your lanes and shipper context in week 1.
+      </p>
+    </div>
 
     <div class="reveal d3 flex items-center gap-8 mb-8">
       <a href="#waitlist"
@@ -243,8 +272,8 @@
     </p>
 
     <div class="reveal d4 flex items-center gap-3 text-xs tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.35);">
-      <span style="color:rgba(255,69,0,0.65);">Simulated lane pressure map</span>
-      <span style="color:rgba(255,255,255,0.35);">Move your cursor to reveal demand density across lanes</span>
+      <span style="color:rgba(255,69,0,0.65);">Lightweight WebGL backdrop</span>
+      <span style="color:rgba(255,255,255,0.35);">GPU-only visual layer, no impact on data or demo logic</span>
     </div>
 
   </div>
@@ -291,7 +320,7 @@
       </div>
 
       <p style="color:#FF4500; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; font-weight:500;">
-        Stop relying on engineers. We'll get you to a demoable prototype in weeks that you can confidently present to stakeholders.
+        Stop relying on engineers. We'll get you a <em>data-backed</em> demo in weeks that you can confidently present to Series A investors.
       </p>
     </div>
 
@@ -807,7 +836,7 @@
         Not features. Outcomes. Each one removes a blocker between you and a client-ready demo.
       </p>
       <p class="reveal d2 text-xs uppercase tracking-[0.2em] mt-4" style="color:rgba(255,255,255,0.35);">
-        The rotating cards show the five demo outcomes you get first.
+        The stacked cards show the five demo outcomes you get first.
       </p>
       <div class="reveal d3 mt-8 grid grid-cols-3 gap-3">
         <div class="border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px; overflow:hidden;">
@@ -1115,6 +1144,49 @@ const { data } = await client.pricing.getLaneBands({
       <p class="mt-3 text-xs leading-relaxed" style="color:rgba(255,255,255,0.45);">
         Returns ETA bands, risk score, and top features for the lane.
       </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ────────────────────────────────────
+     TEAM — logistics experience
+──────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-8"><hr class="rule"></div>
+
+<section class="max-w-6xl mx-auto px-8 py-24">
+  <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
+    <div>
+      <p class="reveal text-[11px] tracking-[0.25em] uppercase mb-5" style="color:rgba(255,255,255,0.25);">Team</p>
+      <h2 class="reveal d1 serif font-bold text-white mb-4 leading-[1.1]" style="font-size: clamp(30px, 3.6vw, 48px);">
+        Operators who built<br><em class="font-normal" style="color:rgba(255,255,255,0.28);">logistics AI in production.</em>
+      </h2>
+      <p class="reveal d2 text-sm max-w-md leading-relaxed" style="color:rgba(255,255,255,0.38);">
+        We’ve shipped pricing, routing, and ETA systems inside freight networks — the same playbooks now packaged for your demo.
+      </p>
+    </div>
+    <div class="grid gap-4">
+      <div class="reveal d1 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-sm text-white/85 mb-1">Alex Kim · Co-founder</p>
+        <p class="text-xs uppercase tracking-[0.2em]" style="color:rgba(255,255,255,0.35);">Former VP Data Science · National 3PL</p>
+        <p class="text-xs leading-relaxed mt-2" style="color:rgba(255,255,255,0.55);">
+          Built lane pricing engines and contract rate bands across 4,000+ lanes.
+        </p>
+      </div>
+      <div class="reveal d2 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-sm text-white/85 mb-1">Priya Shah · Co-founder</p>
+        <p class="text-xs uppercase tracking-[0.2em]" style="color:rgba(255,255,255,0.35);">Former Applied ML Lead · Freight Marketplace</p>
+        <p class="text-xs leading-relaxed mt-2" style="color:rgba(255,255,255,0.55);">
+          Deployed ETA prediction + dispatch optimization models in live broker ops.
+        </p>
+      </div>
+      <div class="reveal d3 p-6 border border-white/[0.07]" style="background:#0d0d0d; border-radius:2px;">
+        <p class="text-sm text-white/85 mb-1">Jorge Alvarez · Advisor</p>
+        <p class="text-xs uppercase tracking-[0.2em]" style="color:rgba(255,255,255,0.35);">ML Lead · DHL Supply Chain</p>
+        <p class="text-xs leading-relaxed mt-2" style="color:rgba(255,255,255,0.55);">
+          Scaled routing and warehouse automation pipelines across 12 regions.
+        </p>
+      </div>
     </div>
   </div>
 </section>
@@ -1803,15 +1875,17 @@ const { data } = await client.pricing.getLaneBands({
       tl.call(() => { const f = order.shift(); order.push(f); });
     }
 
-    intervalId = setInterval(swap, DELAY);
-
-    if (PAUSE_ON_HOVER) {
-      container.addEventListener('mouseenter', () => { tlCurrent && tlCurrent.pause(); clearInterval(intervalId); isPaused = true;  });
-      container.addEventListener('mouseleave', () => { tlCurrent && tlCurrent.play();  intervalId = setInterval(swap, DELAY); isPaused = false; });
+    const AUTO_ROTATE = false;
+    if (AUTO_ROTATE) {
+      intervalId = setInterval(swap, DELAY);
+      if (PAUSE_ON_HOVER) {
+        container.addEventListener('mouseenter', () => { tlCurrent && tlCurrent.pause(); clearInterval(intervalId); isPaused = true;  });
+        container.addEventListener('mouseleave', () => { tlCurrent && tlCurrent.play();  intervalId = setInterval(swap, DELAY); isPaused = false; });
+      }
+      container.addEventListener('click', () => {
+        if (!isPaused) { clearInterval(intervalId); swap(); intervalId = setInterval(swap, DELAY); }
+      });
     }
-    container.addEventListener('click', () => {
-      if (!isPaused) { clearInterval(intervalId); swap(); intervalId = setInterval(swap, DELAY); }
-    });
   })();
 
   // ── Reveal ──
@@ -1826,7 +1900,7 @@ const { data } = await client.pricing.getLaneBands({
 
   // ── Persona selector ──
   const PERSONA_MSGS = {
-    founder: "Stop relying on engineers. We'll get you to a demoable prototype in weeks that you can confidently present to stakeholders.",
+    founder: "Stop relying on engineers. We'll get you a data-backed demo in weeks that you can confidently present to Series A investors.",
     pm:      "The feature that's been in your backlog for months? That's what you'll build first.",
     dev:     "You write code. We'll make sure it has AI in it — and that you can explain why every line is there.",
     other:   "Tell us what you're building. We'll figure out the path together.",
@@ -1846,6 +1920,47 @@ const { data } = await client.pricing.getLaneBands({
       msg.style.opacity = '1';
     }, 150);
   }
+
+  // ── Pricing preview ──
+  (function initPricingPreview() {
+    const output = document.getElementById('pricing-output');
+    const btn = document.getElementById('run-pricing');
+    const originEl = document.getElementById('lane-origin');
+    const destEl = document.getElementById('lane-dest');
+    const milesEl = document.getElementById('lane-miles');
+    const weightEl = document.getElementById('lane-weight');
+    const fuelEl = document.getElementById('fuel-index');
+    if (!output || !btn || !originEl || !destEl || !milesEl || !weightEl || !fuelEl) return;
+
+    function formatMoney(value) {
+      return value.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    }
+
+    function calc() {
+      const origin = (originEl.value || 'LAX').toUpperCase();
+      const dest = (destEl.value || 'ORD').toUpperCase();
+      const miles = Math.max(100, Number(milesEl.value) || 0);
+      const weight = Math.max(1000, Number(weightEl.value) || 0);
+      const fuel = Math.max(1, Number(fuelEl.value) || 3.6);
+
+      const weightAdj = Math.min(0.35, (weight / 20000) * 0.22);
+      const fuelAdj = (fuel - 3.5) * 0.16;
+      const distanceAdj = miles * 0.00022;
+      const rate = Math.max(1.7, 1.95 + weightAdj + fuelAdj + distanceAdj);
+      const low = rate * 0.89;
+      const high = rate * 1.13;
+      const total = rate * miles;
+      const winRate = Math.round(52 + Math.max(-10, Math.min(12, (2.35 - rate) * 10)));
+      const etaRisk = miles > 1600 ? 'Medium' : 'Low';
+
+      output.innerHTML = `Lane: ${origin} → ${dest} · Suggested rate: $${rate.toFixed(2)}/mi · Total: $${formatMoney(total)}<br>` +
+        `Band: $${low.toFixed(2)} – $${high.toFixed(2)} · Win-rate: ${winRate}% · ETA risk: ${etaRisk}`;
+    }
+
+    btn.addEventListener('click', calc);
+    [originEl, destEl, milesEl, weightEl, fuelEl].forEach(el => el.addEventListener('change', calc));
+    calc();
+  })();
 
 </script>
 
